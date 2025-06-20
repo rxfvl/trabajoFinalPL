@@ -179,6 +179,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
 
 %token REPEAT UNTIL
+%token THEN
 
 /* NEW in example 7 */
 %right ASSIGNMENT
@@ -324,7 +325,7 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// $$ = $1;
 	 }
 	
-	| repeat SEMICOLON
+	| repeat
 ;
 
 
@@ -344,20 +345,20 @@ controlSymbol:  /* Epsilon rule*/
 
 	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
-	IF controlSymbol cond stmt 
+	IF controlSymbol cond THEN stmt 
     {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($3, $4);
+		$$ = new lp::IfStmt($3, $5);
 
 		// To control the interactive mode
 		control--;
 	}
 
 	/* Compound conditional statement */
-	| IF controlSymbol cond stmt  ELSE stmt 
+	| IF controlSymbol cond THEN stmt ELSE stmt 
 	 {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($3, $4, $6);
+		$$ = new lp::IfStmt($3, $5, $7);
 
 		// To control the interactive mode
 		control--;
@@ -622,7 +623,7 @@ listOfExp:
 ;
 
 repeat:
-  REPEAT controlSymbol stmt UNTIL cond
+  REPEAT controlSymbol stmt UNTIL cond SEMICOLON
   {
     $$ = new lp::RepeatStmt($3, $5);
     control--;

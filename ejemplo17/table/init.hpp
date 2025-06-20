@@ -77,6 +77,10 @@ static struct {
 						{"while", WHILE},	// NEW in example 17
 	                    {"repeat", REPEAT},
 						{"until", UNTIL},
+						{"not", NOT},
+						{"or", OR},
+						{"and", AND},
+						{"then", THEN},
 						{"",      0}
 	                   };
 
