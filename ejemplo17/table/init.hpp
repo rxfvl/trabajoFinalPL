@@ -75,7 +75,9 @@ static struct {
 						{"if",	  IF},   	// NEW in example 17
 						{"else",  ELSE}, 	// NEW in example 17
 						{"while", WHILE},	// NEW in example 17
-	                    {"",      0}
+	                    {"repeat", REPEAT},
+						{"until", UNTIL},
+						{"",      0}
 	                   };
 
 

@@ -159,7 +159,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block
+%type <st> stmt asgn print read if while block repeat
 
 %type <prog> program
 
@@ -173,10 +173,12 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /*******************************************/
 
 /* NEW in example 17: IF, ELSE, WHILE */
-%token PRINT READ IF ELSE WHILE 
+%token PRINT READ IF ELSE WHILE
 
 /* NEW in example 17 */
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
+
+%token REPEAT UNTIL
 
 /* NEW in example 7 */
 %right ASSIGNMENT
@@ -321,6 +323,8 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	 }
+	
+	| repeat SEMICOLON
 ;
 
 
@@ -617,6 +621,14 @@ listOfExp:
 			}
 ;
 
+repeat:
+  REPEAT controlSymbol stmt UNTIL cond
+  {
+    $$ = new lp::RepeatStmt($3, $5);
+    control--;
+  }
+;
+
 restOfListOfExp:
 			/* Empty list of numeric expressions */
 			{
@@ -633,7 +645,6 @@ restOfListOfExp:
 				$$->push_front($2);
 			}
 ;
-
 
 
 %%

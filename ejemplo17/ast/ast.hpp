@@ -1759,6 +1759,20 @@ class AST {
   void evaluate();
 };
 
+
+class RepeatStmt : public Statement {
+private:
+	lp::Statement *_stmt;
+	lp::ExpNode *_cond;
+
+public:
+	RepeatStmt(lp::Statement *stmt, lp::ExpNode *cond) : _stmt(stmt), _cond(cond) {}
+
+	void printAST();
+	void evaluate();
+};
+
+
 // End of name space lp
 }
 

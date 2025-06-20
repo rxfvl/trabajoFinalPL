@@ -1400,6 +1400,23 @@ void lp::BlockStmt::evaluate()
 }
 
 
+void lp::RepeatStmt::printAST() 
+{
+	std::cout << "RepeatStmt:" << std::endl;
+	std::cout << "\tBody:" << std::endl;
+	_stmt->printAST();
+	std::cout << "\tUntil condition:" << std::endl;
+	_cond->printAST();
+}
+
+void lp::RepeatStmt::evaluate() 
+{
+	do {
+		_stmt->evaluate();
+	} while (_cond->evaluateBool() == false);
+}
+
+
 
 
 
