@@ -347,34 +347,42 @@ controlSymbol:  /* Epsilon rule*/
 
 	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
-	IF controlSymbol cond THEN stmt ENDIF
+	IF controlSymbol cond THEN stmtlist ENDIF
     {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($3, $5);
+		lp::BlockStmt* thenBlock = new lp::BlockStmt($5);
+		$$ = new lp::IfStmt($3, thenBlock);
 
 		// To control the interactive mode
 		control--;
+		delete $5;
 	}
 
 	/* Compound conditional statement */
-	| IF controlSymbol cond THEN stmt ELSE stmt ENDIF
+	| IF controlSymbol cond THEN stmtlist ELSE stmtlist ENDIF
 	 {
 		// Create a new if statement node
-		$$ = new lp::IfStmt($3, $5, $7);
+		lp::BlockStmt* thenBlock = new lp::BlockStmt($5);
+		lp::BlockStmt* elseBlock = new lp::BlockStmt($7);
+		$$ = new lp::IfStmt($3, thenBlock, elseBlock);
 
 		// To control the interactive mode
 		control--;
+		delete $5;
+		delete $7;
 	 }
 ;
 
 	/*  NEW in example 17 */
-while:  WHILE controlSymbol cond DO stmt ENDWHILE
+while:  WHILE controlSymbol cond DO stmtlist ENDWHILE
 		{
 			// Create a new while statement node
-			$$ = new lp::WhileStmt($3, $5);
+			lp::BlockStmt* doBlock = new lp::BlockStmt($5);
+			$$ = new lp::WhileStmt($3, doBlock);
 
 			// To control the interactive mode
 			control--;
+			delete $5;
     }
 ;
 
