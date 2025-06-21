@@ -355,7 +355,6 @@ if:	/* Simple conditional statement */
 
 		// To control the interactive mode
 		control--;
-		delete $5;
 	}
 
 	/* Compound conditional statement */
@@ -368,8 +367,6 @@ if:	/* Simple conditional statement */
 
 		// To control the interactive mode
 		control--;
-		delete $5;
-		delete $7;
 	 }
 ;
 
@@ -382,7 +379,6 @@ while:  WHILE controlSymbol cond DO stmtlist ENDWHILE
 
 			// To control the interactive mode
 			control--;
-			delete $5;
     }
 ;
 
