@@ -40,6 +40,7 @@
 #include "../table/numericVariable.hpp"
 
 extern lp::Table table; //!< External Table of Symbols
+
 /*********************************************/
 
 extern int lineNumber; //!< External line counter
@@ -62,6 +63,8 @@ NUMBER1 {DIGIT}+\.?
 NUMBER2 {DIGIT}*\.{DIGIT}+
 
 IDENTIFIER  {LETTER}({LETTER}|{DIGIT}|_)*
+
+CADENA \'([^\\\']|\\[nt'\\])*\'
 
 /* NEW in example 3 */
 /* STATE  */
@@ -186,6 +189,28 @@ IDENTIFIER  {LETTER}({LETTER}|{DIGIT}|_)*
 
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 
+
+{CADENA} 	{std::string raw = yytext;
+			raw = raw.substr(1, raw.length() - 2); // Eliminar comillas exteriores
+
+			std::string result;
+			for (size_t i = 0; i < raw.length(); ++i) {
+				if (raw[i] == '\\' && i + 1 < raw.length()) {
+					switch (raw[i + 1]) {
+						case 'n': result += '\n'; break;
+						case 't': result += '\t'; break;
+						case '\'': result += '\''; break;
+						case '\\': result += '\\'; break;
+						default: result += raw[i + 1]; break;
+					}
+					++i;
+				} else {
+					result += raw[i];
+				}
+			}
+
+			yylval.string = strdup(result.c_str());
+			return STRING;}
 
 <<EOF>> { /* The interpreter finishes when finds the end of file character */
 		/*  PLACE(24,10);

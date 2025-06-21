@@ -27,6 +27,7 @@
 // 
 #include "../table/numericVariable.hpp"
 #include "../table/logicalVariable.hpp"
+#include "../table/stringVariable.hpp"
 
 #include "../table/numericConstant.hpp"
 #include "../table/logicalConstant.hpp"
@@ -115,6 +116,24 @@ bool lp::VariableNode::evaluateBool()
 	// Return the value of the LogicalVariable
 	return result;
 }
+
+std::string lp::VariableNode::evaluateString()
+{
+	std::string result;
+
+	if (this->getType() == -1)
+	{
+		lp::StringVariable *var = (lp::StringVariable *) table.getSymbol(this->_id);
+		result = var->getValue();
+	}
+	else
+	{
+		warning("Runtime error in evaluateString(): the variable is not a string", this->_id);
+	}
+
+	return result;
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1107,6 +1126,26 @@ void lp::AssignmentStmt::evaluate()
 				}
 			}
 			break;
+			
+			case -1:
+			{
+				std::string value = this->_exp->evaluateString();
+
+				if (firstVar->getType() == -1) {
+					// Si ya es una string, solo la actualizamos
+					lp::StringVariable *v = (lp::StringVariable *) table.getSymbol(this->_id);
+					v->setValue(value);
+				}
+				else {
+					// Borrar variable previa y crear nueva string
+					table.eraseSymbol(this->_id);
+
+					lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+					table.installSymbol(v);
+				}
+			}
+break;
+
 
 			default:
 				warning("Runtime error: incompatible type of expression for ", "Assigment");
@@ -1220,18 +1259,16 @@ void lp::PrintStmt::evaluate()
 	switch(this->_exp->getType())
 	{
 		case NUMBER:
-				std::cout << this->_exp->evaluateNumber() << std::endl;
-				break;
+			std::cout << this->_exp->evaluateNumber() << std::endl;
+			break;
+
 		case BOOL:
-			if (this->_exp->evaluateBool())
-				std::cout << "true" << std::endl;
-			else
-				std::cout << "false" << std::endl;
-		
+			std::cout << (this->_exp->evaluateBool() ? "true" : "false") << std::endl;
 			break;
 
 		default:
-			warning("Runtime error: incompatible type for ", "print");
+			// Intentar imprimir como string
+			std::cout << this->_exp->evaluateString() << std::endl;
 	}
 }
 
@@ -1296,6 +1333,70 @@ void lp::EmptyStmt::evaluate()
 {
   // Empty
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+void lp::ReadStrStmt::printAST() 
+{
+  std::cout << "ReadStrStmt: read_str" << std::endl;
+  std::cout << "\t" << this->_id << std::endl;
+}
+
+void lp::ReadStrStmt::evaluate() 
+{   
+	std::string value;
+
+	std::cout << BIYELLOW;
+	std::cout << "Insert a string value --> ";
+	std::cout << RESET;
+	std::getline(std::cin >> std::ws, value);  // lee toda la línea, ignorando espacios previos
+
+	// Buscar el símbolo
+	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
+
+	if (var != NULL && var->getType() == -1) // STRING
+	{
+		lp::StringVariable *v = (lp::StringVariable *) table.getSymbol(this->_id);
+		v->setValue(value);
+	}
+	else
+	{
+		table.eraseSymbol(this->_id);
+		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+		table.installSymbol(v);
+	}
+}
+
+// void lp::ReadStrStmt::evaluate() 
+// {   
+// 	std::string value;
+
+// 	std::cout << BIYELLOW;
+// 	std::cout << "Insert a string value --> ";
+// 	std::cout << RESET;
+// 	std::getline(std::cin >> std::ws, value);  // lee la línea completa
+
+// 	// Por si el usuario mete comillas exteriores (no necesario si se asume formato limpio)
+// 	if (value.length() >= 2 && value.front() == '\'' && value.back() == '\'')
+// 	{
+// 		value = value.substr(1, value.length() - 2);
+// 	}
+
+// 	// Buscar si la variable ya existe
+// 	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
+
+// 	if (var != NULL && var->getType() == -1) // STRING
+// 	{
+// 		lp::StringVariable *v = (lp::StringVariable *) var;
+// 		v->setValue(value);
+// 	}
+// 	else
+// 	{
+// 		table.eraseSymbol(this->_id);
+// 		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+// 		table.installSymbol(v);
+// 	}
+// }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

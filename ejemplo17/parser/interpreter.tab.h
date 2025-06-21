@@ -58,41 +58,44 @@ extern int yydebug;
     PRINT = 259,                   /* PRINT  */
     READ = 260,                    /* READ  */
     IF = 261,                      /* IF  */
-    ELSE = 262,                    /* ELSE  */
-    WHILE = 263,                   /* WHILE  */
-    LETFCURLYBRACKET = 264,        /* LETFCURLYBRACKET  */
-    RIGHTCURLYBRACKET = 265,       /* RIGHTCURLYBRACKET  */
-    REPEAT = 266,                  /* REPEAT  */
-    UNTIL = 267,                   /* UNTIL  */
-    THEN = 268,                    /* THEN  */
-    ASSIGNMENT = 269,              /* ASSIGNMENT  */
-    COMMA = 270,                   /* COMMA  */
-    NUMBER = 271,                  /* NUMBER  */
-    BOOL = 272,                    /* BOOL  */
-    VARIABLE = 273,                /* VARIABLE  */
-    UNDEFINED = 274,               /* UNDEFINED  */
-    CONSTANT = 275,                /* CONSTANT  */
-    BUILTIN = 276,                 /* BUILTIN  */
-    OR = 277,                      /* OR  */
-    AND = 278,                     /* AND  */
-    GREATER_OR_EQUAL = 279,        /* GREATER_OR_EQUAL  */
-    LESS_OR_EQUAL = 280,           /* LESS_OR_EQUAL  */
-    GREATER_THAN = 281,            /* GREATER_THAN  */
-    LESS_THAN = 282,               /* LESS_THAN  */
-    EQUAL = 283,                   /* EQUAL  */
-    NOT_EQUAL = 284,               /* NOT_EQUAL  */
-    NOT = 285,                     /* NOT  */
-    PLUS = 286,                    /* PLUS  */
-    MINUS = 287,                   /* MINUS  */
-    MULTIPLICATION = 288,          /* MULTIPLICATION  */
-    DIVISION = 289,                /* DIVISION  */
-    MODULO = 290,                  /* MODULO  */
-    LPAREN = 291,                  /* LPAREN  */
-    RPAREN = 292,                  /* RPAREN  */
-    UNARY = 293,                   /* UNARY  */
-    POWER = 294,                   /* POWER  */
-    ENDIF = 295,   
-    ENDWHILE = 296                 
+    THEN = 262,                    /* THEN  */
+    ELSE = 263,                    /* ELSE  */
+    ENDIF = 264,                   /* ENDIF  */
+    WHILE = 265,                   /* WHILE  */
+    ENDWHILE = 266,                /* ENDWHILE  */
+    READ_STR = 267,                /* READ_STR  */
+    LETFCURLYBRACKET = 268,        /* LETFCURLYBRACKET  */
+    RIGHTCURLYBRACKET = 269,       /* RIGHTCURLYBRACKET  */
+    REPEAT = 270,                  /* REPEAT  */
+    UNTIL = 271,                   /* UNTIL  */
+    DO = 272,                      /* DO  */
+    STRING = 273,                  /* STRING  */
+    ASSIGNMENT = 274,              /* ASSIGNMENT  */
+    COMMA = 275,                   /* COMMA  */
+    NUMBER = 276,                  /* NUMBER  */
+    BOOL = 277,                    /* BOOL  */
+    VARIABLE = 278,                /* VARIABLE  */
+    UNDEFINED = 279,               /* UNDEFINED  */
+    CONSTANT = 280,                /* CONSTANT  */
+    BUILTIN = 281,                 /* BUILTIN  */
+    OR = 282,                      /* OR  */
+    AND = 283,                     /* AND  */
+    GREATER_OR_EQUAL = 284,        /* GREATER_OR_EQUAL  */
+    LESS_OR_EQUAL = 285,           /* LESS_OR_EQUAL  */
+    GREATER_THAN = 286,            /* GREATER_THAN  */
+    LESS_THAN = 287,               /* LESS_THAN  */
+    EQUAL = 288,                   /* EQUAL  */
+    NOT_EQUAL = 289,               /* NOT_EQUAL  */
+    NOT = 290,                     /* NOT  */
+    PLUS = 291,                    /* PLUS  */
+    MINUS = 292,                   /* MINUS  */
+    MULTIPLICATION = 293,          /* MULTIPLICATION  */
+    DIVISION = 294,                /* DIVISION  */
+    MODULO = 295,                  /* MODULO  */
+    LPAREN = 296,                  /* LPAREN  */
+    RPAREN = 297,                  /* RPAREN  */
+    UNARY = 298,                   /* UNARY  */
+    POWER = 299                    /* POWER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -112,7 +115,7 @@ union YYSTYPE
   lp::Statement *st;				 /* NEW in example 16 */
   lp::AST *prog;					 /* NEW in example 16 */
 
-#line 114 "interpreter.tab.h"
+#line 119 "interpreter.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

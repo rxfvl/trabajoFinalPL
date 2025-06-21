@@ -76,6 +76,7 @@ static struct {
 						{"endif", ENDIF},
 						{"else",  ELSE}, 	// NEW in example 17
 						{"while", WHILE},	// NEW in example 17
+						{"do", DO},
 	                    {"repeat", REPEAT},
 						{"until", UNTIL},
 						{"not", NOT},
@@ -83,6 +84,7 @@ static struct {
 						{"and", AND},
 						{"then", THEN},
 						{"endwhile", ENDWHILE},
+						{"read_str", READ_STR},
 						{"",      0}
 	                   };
 

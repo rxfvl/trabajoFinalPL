@@ -68,6 +68,17 @@ namespace lp
 	{
 		return false;
 	}
+	/*!	
+	\brief   Evaluate the expression as STRING
+	\warning Virtual function: must be redefined in StringNode
+	\return  std::string
+*/
+	virtual std::string evaluateString()
+	{
+		std::cerr << "Runtime warning: evaluateString() not implemented for this node type" << std::endl;
+		return "";
+	}
+
 
 };
 
@@ -125,6 +136,7 @@ class VariableNode : public ExpNode
 		\sa		   getType, printAST, evaluateNumber
 	*/
 	  bool evaluateBool();
+	  std::string evaluateString() override;
 
 };
 
@@ -1522,8 +1534,29 @@ class ReadStmt : public Statement
 };
 
 
+/*!	
+  \class ReadStrStmt
+  \brief Class to represent a read string statement
+*/
+class ReadStrStmt : public Statement {
+ private:
+  std::string _id;
+
+ public:
+  ReadStrStmt(std::string id) : _id(id) {}
+
+  inline std::string getId() const { return _id; }
+
+  void printAST() override;
+
+  void evaluate() override;
+};
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 /*!	
@@ -1770,6 +1803,68 @@ public:
 
 	void printAST();
 	void evaluate();
+};
+
+
+/*!	
+  \class   StringNode
+  \brief   Definition of attributes and methods of StringNode class
+  \note    StringNode Class publicly inherits from ExpNode class
+*/
+class StringNode : public ExpNode 
+{
+ private:
+  std::string _value; //!< Value of the string
+
+ public:
+
+/*!		
+	\brief Constructor of StringNode
+	\param value: string value of the node
+	\post  A new StringNode is created with the given string
+*/
+  explicit StringNode(const std::string &value) : _value(value) {}
+
+/*!	
+	\brief   Get the type of the expression: STRING (symbolic or -1)
+	\return  int
+*/
+  int getType() override {
+    return -1; // o define un STRING_TYPE si lo deseas
+  }
+
+/*!	
+	\brief   Print the AST for the StringNode
+	\return  void
+*/
+  void printAST() override {
+    std::cout << "StringNode: \"" << _value << "\"" << std::endl;
+  }
+
+/*!	
+	\brief   Evaluate the expression as number (not valid)
+	\return  double
+*/
+  double evaluateNumber() override {
+    std::cerr << "Runtime error: cannot evaluate a string as number" << std::endl;
+    return 0.0;
+  }
+
+/*!	
+	\brief   Evaluate the expression as boolean
+	\return  bool (true if not empty)
+*/
+  bool evaluateBool() override {
+    return !_value.empty();
+  }
+
+/*!	
+	\brief   Evaluate the expression as string
+	\return  std::string
+*/
+  std::string evaluateString() override{
+    return _value;
+  }
 };
 
 

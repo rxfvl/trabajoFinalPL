@@ -174,13 +174,15 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 /* NEW in example 17: IF, ELSE, WHILE */
 %token PRINT READ IF THEN ELSE ENDIF WHILE ENDWHILE
+%token READ_STR
 
 /* NEW in example 17 */
 %token LETFCURLYBRACKET RIGHTCURLYBRACKET
 
 %token REPEAT UNTIL
-%token THEN
+%token DO
 
+%token <string> STRING
 /* NEW in example 7 */
 %right ASSIGNMENT
 
@@ -366,10 +368,10 @@ if:	/* Simple conditional statement */
 ;
 
 	/*  NEW in example 17 */
-while:  WHILE controlSymbol cond stmt ENDWHILE
+while:  WHILE controlSymbol cond DO stmt ENDWHILE
 		{
 			// Create a new while statement node
-			$$ = new lp::WhileStmt($3, $4);
+			$$ = new lp::WhileStmt($3, $5);
 
 			// To control the interactive mode
 			control--;
@@ -425,6 +427,11 @@ read:  READ LPAREN VARIABLE RPAREN
 	| READ LPAREN CONSTANT RPAREN  
 		{   
  			execerror("Semantic error in \"read statement\": it is not allowed to modify a constant ",$3);
+		}
+	
+	| READ_STR LPAREN VARIABLE RPAREN
+		{
+			$$ = new lp::ReadStrStmt($3);
 		}
 ;
 
@@ -603,6 +610,12 @@ exp:	NUMBER
 		  // Create a new "logic negation" node	
  			$$ = new lp::NotNode($2);
 		}
+	
+	| STRING
+    {
+        $$ = new lp::StringNode($1);
+        free($1);  // liberar strdup
+    }
 ;
 
 
