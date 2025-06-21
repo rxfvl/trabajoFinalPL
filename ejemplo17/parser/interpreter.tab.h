@@ -90,7 +90,9 @@ extern int yydebug;
     LPAREN = 291,                  /* LPAREN  */
     RPAREN = 292,                  /* RPAREN  */
     UNARY = 293,                   /* UNARY  */
-    POWER = 294                    /* POWER  */
+    POWER = 294,                   /* POWER  */
+    ENDIF = 295,   
+    ENDWHILE = 296                 
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

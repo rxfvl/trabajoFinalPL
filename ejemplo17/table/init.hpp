@@ -73,6 +73,7 @@ static struct {
 	                    {"print", PRINT},
 	                    {"read",  READ},
 						{"if",	  IF},   	// NEW in example 17
+						{"endif", ENDIF},
 						{"else",  ELSE}, 	// NEW in example 17
 						{"while", WHILE},	// NEW in example 17
 	                    {"repeat", REPEAT},
@@ -81,6 +82,7 @@ static struct {
 						{"or", OR},
 						{"and", AND},
 						{"then", THEN},
+						{"endwhile", ENDWHILE},
 						{"",      0}
 	                   };
 
