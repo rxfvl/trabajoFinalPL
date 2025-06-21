@@ -640,9 +640,10 @@ listOfExp:
 ;
 
 repeat:
-  REPEAT controlSymbol stmt UNTIL cond SEMICOLON
+  REPEAT stmtlist UNTIL controlSymbol cond SEMICOLON
   {
-    $$ = new lp::RepeatStmt($3, $5);
+	lp::BlockStmt* repeatBlock = new lp::BlockStmt($2);
+    $$ = new lp::RepeatStmt(repeatBlock, $5);
     control--;
   }
 ;
