@@ -1792,16 +1792,39 @@ class AST {
   void evaluate();
 };
 
-
+/*!	
+  \class   RepeatStmt
+  \brief   Definition of atributes and methods of RepeatStmt class
+  \note    RepeatStmt Class publicly inherits from Statement class 
+		       and adds its own printAST and evaluate functions
+*/
 class RepeatStmt : public Statement {
 private:
-	lp::Statement *_stmt;
-	lp::ExpNode *_cond;
+	Statement *_stmt;
+	ExpNode *_cond;
 
 public:
-	RepeatStmt(lp::Statement *stmt, lp::ExpNode *cond) : _stmt(stmt), _cond(cond) {}
+/*!
+	\brief Constructor of RepeatStmt
+	\param statement: Statement of the body loop
+	\param condition: ExpNode of condition
+*/
+	RepeatStmt(Statement *statement, ExpNode *condition){
+		this->_stmt = statement;
+		this->_cond = condition;
+	}
+/*!
+	\brief   Print the AST for EmptyStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
 
-	void printAST();
+/*!	
+	\brief   Evaluate the EmptyStmt
+	\return  void
+	\sa		   printAST
+*/
 	void evaluate();
 };
 

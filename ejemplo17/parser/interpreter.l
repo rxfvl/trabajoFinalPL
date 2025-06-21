@@ -4,6 +4,7 @@
 */
 %{
 #include <iostream>
+#include <cstdio>
 
 /*********************/
 /* NEW in example 4 */
@@ -69,6 +70,7 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 /* NEW in example 3 */
 /* STATE  */
 %x ERROR
+%x COMMENT
 
 /*! \name REGULAR EXPRESSIONS  */
 %%
@@ -94,6 +96,18 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 			/* NEW in example 14 */
 			return COMMA;
 		}
+
+"//".*	{
+			/*Ignora la linea*/
+		}
+
+"/*"	{
+			BEGIN(COMMENT);
+		}
+
+<COMMENT>"*/"	{BEGIN(INITIAL); }
+<COMMENT>"\n"	{lineNumber++; }
+<COMMENT>. 		{/*Ignora el resto*/}
 
 {NUMBER1}|{NUMBER2}  {
 					  /* MODIFIED in example 4 */
