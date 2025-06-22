@@ -73,7 +73,9 @@ NUMBER1 {DIGIT}+\.?
 
 NUMBER2 {DIGIT}*\.{DIGIT}+
 
-IDENTIFIER  {LETTER}({LETTER}|{DIGIT}|_)*
+IDENTIFIER {LETTER}({LETTER}|{DIGIT}|_)*
+
+
 
 CADENA \'([^\\\']|\\[nt'\\])*\'
 
@@ -81,6 +83,8 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 /* STATE  */
 %x ERROR
 %x COMMENT
+%x BAD_IDENTIFIER
+
 
 /*! \name REGULAR EXPRESSIONS  */
 %%
@@ -131,24 +135,45 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
 
 {IDENTIFIER} {
-	std::string lexema = toLower(yytext); // usar siempre minúsculas
-	yylval.string = strdup(lexema.c_str());
+	std::string lexema = toLower(yytext);
 
-	if (lexema == "mod") return MODULO;
-	if (lexema == "not") return NOT;
-	if (lexema == "or") return OR;
-	if (lexema == "and") return AND;
-	// ...
+	// Validación del identificador
+	if (lexema[0] == '_') {
+		std::string mensaje = "Bad identifier: \"" + lexema + "\" (empieza con '_')";
+		warning("Error léxico", mensaje.c_str());
+	}
+	else if (lexema[lexema.length()-1] == '_') {
+		std::string mensaje = "Bad identifier: \"" + lexema + "\" (termina con '_')";
+		warning("Error léxico", mensaje.c_str());
+	}
+	else if (lexema.find("__") != std::string::npos) {
+		std::string mensaje = "Bad identifier: \"" + lexema + "\" (contiene '__')";
+		warning("Error léxico", mensaje.c_str());
+	}
 
-	if (!table.lookupSymbol(lexema)) {
-		lp::NumericVariable *n = new lp::NumericVariable(lexema, VARIABLE, UNDEFINED, 0.0);
-		table.installSymbol(n);
-		return VARIABLE;
-	} else {
-		lp::Symbol *s = table.getSymbol(lexema);
-		return s->getToken();
+	// Si es válido
+	else
+	{
+		yylval.string = strdup(lexema.c_str());
+
+		if (lexema == "mod") return MODULO;
+		if (lexema == "not") return NOT;
+		if (lexema == "or") return OR;
+		if (lexema == "and") return AND;
+
+		if (!table.lookupSymbol(lexema)) {
+			lp::NumericVariable *n = new lp::NumericVariable(lexema, VARIABLE, UNDEFINED, 0.0);
+			table.installSymbol(n);
+			return VARIABLE;
+		} else {
+			lp::Symbol *s = table.getSymbol(lexema);
+			return s->getToken();
+		}
 	}
 }
+
+
+
 
 
 
@@ -237,6 +262,18 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 									yymore();  
 								}
 
+<BAD_IDENTIFIER>{LETTER}|{DIGIT}|_ {
+	yymore(); // seguimos acumulando el identificador erróneo
+}
+
+<BAD_IDENTIFIER>[^a-zA-Z0-9_] {
+	// Terminó el identificador inválido
+	yyless(1); // devuelve el carácter no perteneciente
+	BEGIN(INITIAL); // vuelve al estado normal
+}
+
+
+
 <ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]	{ /* MODIFIED in examples 5, 7, 15 */
 								  /* NEW in example 3 */
 								  /* 
@@ -249,6 +286,7 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 <ERROR>(.|\n)                { 
 								/* NEW in example 3 */
 								/* Rewind one position */
+
 								yyless(yyleng-1); 
 
 								/* Display the error message */
