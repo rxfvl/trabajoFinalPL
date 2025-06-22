@@ -1288,9 +1288,9 @@ void lp::PrintStmt::printAST()
 
 void lp::PrintStmt::evaluate() 
 {
-	std::cout << BIYELLOW; 
-	std::cout << "print: ";
-	std::cout << RESET; 
+	// std::cout << BIYELLOW; 
+	// std::cout << "print: ";
+	// std::cout << RESET; 
 
 	switch(this->_exp->getType())
 	{
@@ -1324,9 +1324,9 @@ void lp::ReadStmt::printAST()
 void lp::ReadStmt::evaluate() 
 {   
 	double value;
-	std::cout << BIYELLOW; 
-	std::cout << "Insert a numeric value --> " ;
-	std::cout << RESET; 
+	// std::cout << BIYELLOW; 
+	// std::cout << "Insert a numeric value --> " ;
+	// std::cout << RESET; 
 	std::cin >> value;
 
 	/* Get the identifier in the table of symbols as Variable */
@@ -1382,9 +1382,9 @@ void lp::ReadStrStmt::evaluate()
 {   
 	std::string value;
 
-	std::cout << BIYELLOW;
-	std::cout << "Insert a string value --> ";
-	std::cout << RESET;
+	// std::cout << BIYELLOW;
+	// std::cout << "Insert a string value --> ";
+	// std::cout << RESET;
 	std::getline(std::cin >> std::ws, value);  // lee toda la línea, ignorando espacios previos
 
 	// Buscar el símbolo
