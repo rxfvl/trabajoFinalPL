@@ -8,12 +8,12 @@
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-NO EXISTEN CONFLICTOS EN LAS REGLAS DE PRODUCCIÓN:		[ ]
+NO EXISTEN CONFLICTOS EN LAS REGLAS DE PRODUCCIÓN:		[X]
 -------------------------------------------------------------------------------------
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-PALABRAS RESERVADAS:									[ ]	
+PALABRAS RESERVADAS:									[X]	
 --------------------------------------------------------------------------------------
 	or 							[X]
 	and							[X]
@@ -56,28 +56,28 @@ PALABRAS RESERVADAS:									[ ]
 		default					[X]
 		end_switch				[X]
 
-	MACROS:						[ ]
-		clear_screen				[ ]
-		place					[ ]
+	MACROS:						[X]
+		clear_screen				[X]
+		place					[X]
 
-	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS	[ ]
-	LAS PALABRAS RESERVADAS NO SON IDENTIFICADORES	[ ]
+	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS	[X]
+	LAS PALABRAS RESERVADAS NO SON IDENTIFICADORES	[X]
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-IDENTIFICADORES:										[ ]					
+IDENTIFICADORES:										[X]					
 -------------------------------------------------------------------------------------
-	COMPUESTOS POR LETRAS, DIGITOS Y SUBRAYADOS 	[ ]
-	COMIENZA POR UNA LETRA				[ ]
-	NO TERMINAN  EN SUBRAYADO			[ ]
-	NO CONTIENEN DOS SUBRAYADOS SEGUIDOS		[ ]
+	COMPUESTOS POR LETRAS, DIGITOS Y SUBRAYADOS 	[X]
+	COMIENZA POR UNA LETRA				[X]
+	NO TERMINAN  EN SUBRAYADO			[X]
+	NO CONTIENEN DOS SUBRAYADOS SEGUIDOS		[X]
 
-	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS	[ ]
+	NO SE DISTINGUE ENTRE MAYÚSCULAS Y MINÚSCULAS	[X]
 
 
 											CONTROL		FECHA
 -------------------------------------------------------------------------------------
-NÚMERO:							[ ]	
+NÚMERO:							[X]	
 -------------------------------------------------------------------------------------
 	ENTEROS 					[X]
 	REALES DE PUNTO FIJO				[X]
@@ -87,7 +87,7 @@ NÚMERO:							[ ]
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-CADENA:													[ ]		
+CADENA:													[X]		
 -------------------------------------------------------------------------------------
 	CARACTERES DELIMITADOS POR COMILLAS SIMPLES 	[X]
 	INCLUYE COMILLA SIMPLE CON  \'					[X]
@@ -97,7 +97,7 @@ CADENA:													[ ]
 
 											CONTROL		FECHA
 -------------------------------------------------------------------------------------
-OPERADORES:									[ ]					
+OPERADORES:									[X]					
 -------------------------------------------------------------------------------------
 	NUMÉRICOS							[X]
 		ASIGNACION :=					[X]
@@ -131,7 +131,7 @@ OPERADORES:									[ ]
 
 													CONTROL		FECHA
 -------------------------------------------------------------------------------------
-OTROS:												[ ]								
+OTROS:												[X]								
 -------------------------------------------------------------------------------------
 	COMENTARIOS							[X]
 		VARIAS LINEAS: DELIMITADORES (* ... *)			[X]
@@ -141,7 +141,7 @@ OTROS:												[ ]
 
 													CONTROL		FECHA
 -------------------------------------------------------------------------------------
-SENTENCIAS DE CONTROL:								[ ]						
+SENTENCIAS DE CONTROL:								[X]						
 -------------------------------------------------------------------------------------
 	ASIGNACIÓN								[X]
 		IDENTIFICADOR := EXPR NUMÉRICA		[X]
@@ -186,7 +186,7 @@ SENTENCIAS DE CONTROL:								[ ]
 					lista de sentencias
 			end_for
 
-		SENTENCIA DE SELECCIÓN MÚLTIPLE:	[ ]
+		SENTENCIA DE SELECCIÓN MÚLTIPLE:	[X]
 			switch					[X]
 			case					[X]
 			default					[X]
@@ -194,15 +194,15 @@ SENTENCIAS DE CONTROL:								[ ]
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-COMANDOS ESPECIALES:										[ ]	
+COMANDOS ESPECIALES:										[X]	
 --------------------------------------------------------------------------------------
-	clear_screan										[ ]
-	place(expresión numérica 1, expresión numérica 2)	[ ]
+	clear_screan										[X]
+	place(expresión numérica 1, expresión numérica 2)	[X]
 
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-OBSERVACIONES:											[ ]		
+OBSERVACIONES:											[X]		
 -------------------------------------------------------------------------------------
 	CAMBIO DE TIPO DINÁMICO	DE LA VARIABLE		[X]
 
@@ -212,29 +212,29 @@ OBSERVACIONES:											[ ]
 CONTROL DE ERRORES:										[ ]	
 -------------------------------------------------------------------------------------
 LÉXICOS										[ ]
-	IDENTIFICADOR MAL ESCRITO 				[ ]
+	IDENTIFICADOR MAL ESCRITO 				[X]
 	NÚMERO MAL ESCRITO 						[ ]
-	SIMBOLO NO PERMITIDO					[ ]
+	SIMBOLO NO PERMITIDO					[X]
 	OTROS									[ ]
 
 SINTÁCTICOS									[ ]
-	SENTENCIA DE CONTROL MAL ESCRITA		[ ]
+	SENTENCIA DE CONTROL MAL ESCRITA		[X]
 	SENTENCIA CON ARGUMENTOS INCOMPATIBLES 	[ ]
 	OTROS						    		[ ]
 
-SEMÁNTICOS										[ ]
-	ARGUMENTOS DE FUNCIONES INCOMPATIBLES  	[ ]
-	OPERANDOS DE EXPRESIONES INCOMPATIBLES 	[ ]
+SEMÁNTICOS										[X]
+	ARGUMENTOS DE FUNCIONES INCOMPATIBLES  	[X]
+	OPERANDOS DE EXPRESIONES INCOMPATIBLES 	[X]
 
 DE EJECUCIÓN									[ ]
-	SENTENCIA "PARA" CON BUCLE INFINITO		[ ]
+	SENTENCIA "PARA" CON BUCLE INFINITO		[X]
 	FICHERO INEXISTENTE						[ ]
 	FICHERO CON EXTENSIÓN INCORRECTA		[ ]
 	OTROS									[ ]
 
 											CONTROL		FECHA
 -------------------------------------------------------------------------------------
-MODOS DE EJECUCIÓN:							[ ]	
+MODOS DE EJECUCIÓN:							[X]	
 -----------------------------------------------------------------------------------
 	INTERACTIVO							[X]
 	DESDE FICHERO							[X]

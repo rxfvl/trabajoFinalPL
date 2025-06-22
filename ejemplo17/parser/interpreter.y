@@ -471,11 +471,11 @@ switch:  SWITCH controlSymbol LPAREN exp RPAREN switchlist ENDSWITCH
 			control--;
     }
 	|
-	SWITCH controlSymbol LPAREN exp RPAREN switchlist DEFAULT COLON stmt ENDSWITCH 
+	SWITCH controlSymbol LPAREN exp RPAREN switchlist DEFAULT COLON stmtlist ENDSWITCH 
 		{
 			// Create a new switch statement node
-			
-			$$ = new lp::CaseBlockStmt($4,$6,$9);
+			lp::BlockStmt* defblock = new lp::BlockStmt($9); 
+			$$ = new lp::CaseBlockStmt($4,$6,defblock);
 
 			// To control the interactive modeW
 			control--;

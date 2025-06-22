@@ -83,8 +83,6 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 /* STATE  */
 %x ERROR
 %x COMMENT
-%x BAD_IDENTIFIER
-
 
 /*! \name REGULAR EXPRESSIONS  */
 %%
@@ -261,18 +259,6 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 									*/
 									yymore();  
 								}
-
-<BAD_IDENTIFIER>{LETTER}|{DIGIT}|_ {
-	yymore(); // seguimos acumulando el identificador erróneo
-}
-
-<BAD_IDENTIFIER>[^a-zA-Z0-9_] {
-	// Terminó el identificador inválido
-	yyless(1); // devuelve el carácter no perteneciente
-	BEGIN(INITIAL); // vuelve al estado normal
-}
-
-
 
 <ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]	{ /* MODIFIED in examples 5, 7, 15 */
 								  /* NEW in example 3 */
