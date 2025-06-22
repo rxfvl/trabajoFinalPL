@@ -73,7 +73,7 @@ static struct {
 	                    {"print", PRINT},
 	                    {"read",  READ},
 						{"if",	  IF},   	// NEW in example 17
-						{"endif", ENDIF},
+						{"end_if", ENDIF},
 						{"else",  ELSE}, 	// NEW in example 17
 						{"while", WHILE},	// NEW in example 17
 						{"do", DO},
@@ -83,7 +83,7 @@ static struct {
 						{"or", OR},
 						{"and", AND},
 						{"then", THEN},
-						{"endwhile", ENDWHILE},
+						{"end_while", ENDWHILE},
 						{"read_str", READ_STR},
 						{"mod", MODULO},
 						{"",      0}

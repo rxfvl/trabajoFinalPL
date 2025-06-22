@@ -489,7 +489,7 @@ double lp::DivisionNode::evaluateNumber()
 		// The divisor is not zero
     	if(std::abs(rightNumber) > ERROR_BOUND)
 		{
-				result = leftNumber / rightNumber;
+				result = (float)leftNumber / (float)rightNumber;
 		}
 		else
 		{
@@ -543,6 +543,42 @@ double lp::ModuloNode::evaluateNumber()
   return result;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::FloorDivisionNode::printAST()
+{
+  std::cout << "FloorDivisionNode: //" << std::endl;
+  std::cout << "\t"; 
+	this->_left->printAST();
+	std::cout << "\t"; 
+	this->_right->printAST();
+}
+
+double lp::FloorDivisionNode::evaluateNumber() 
+{
+	double result = 0.0;
+
+	// Ckeck the types of the expressions
+	if (this->getType() == NUMBER)
+	{
+		double leftNumber, rightNumber;
+
+		leftNumber = this->_left->evaluateNumber();
+		rightNumber = this->_right->evaluateNumber();
+	
+    	if(std::abs(rightNumber) > ERROR_BOUND)
+				result = (int) leftNumber / (int) rightNumber;
+		else
+			warning("Runtime error", "Division by zero");
+	}
+	else
+	{
+		warning("Runtime error: the expressions are not numeric for", "Modulo");
+	}
+
+  return result;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

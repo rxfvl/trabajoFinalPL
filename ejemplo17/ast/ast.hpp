@@ -763,6 +763,37 @@ class ModuloNode : public NumericOperatorNode
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+class FloorDivisionNode : public NumericOperatorNode 
+{
+  public:
+/*!		
+	\brief Constructor of ModuloNode uses NumericOperatorNode's constructor as members initializer
+	\param L: pointer to ExpNode
+	\param R: pointer to ExpNode
+	\post  A new FloorDivisionNode is created with the parameter
+*/
+  FloorDivisionNode(ExpNode *L, ExpNode *R): NumericOperatorNode(L,R) 
+  {
+		// Empty
+  }
+/*!
+	\brief   printAST the FloorDivisionNode
+	\return  void
+	\sa		   evaluateNumber
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the FloorDivisionNode
+	\return  double
+	\sa		   printAST
+*/
+  double evaluateNumber();
+};
+
+//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
 
 /*!	
   \class   PowerNode

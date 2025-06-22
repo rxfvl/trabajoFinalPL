@@ -219,7 +219,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %left PLUS MINUS 
 
 /* MODIFIED in example 5 */
-%left MULTIPLICATION DIVISION MODULO
+%left MULTIPLICATION DIVISION MODULO FLOOR_DIVISION
 
 %left LPAREN RPAREN
 
@@ -494,6 +494,10 @@ exp:	NUMBER
 
 		  $$ = new lp::ModuloNode($1, $3);
        }
+	|	exp FLOOR_DIVISION exp
+		{
+			$$ = new lp::FloorDivisionNode($1,$3);
+		}
 
 	|	exp POWER exp 
      	{ 

@@ -97,15 +97,15 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 			return COMMA;
 		}
 
-"//".*	{
+"#".*	{
 			/*Ignora la linea*/
 		}
 
-"/*"	{
+"(*"	{
 			BEGIN(COMMENT);
 		}
 
-<COMMENT>"*/"	{BEGIN(INITIAL); }
+<COMMENT>"*)"	{BEGIN(INITIAL); }
 <COMMENT>"\n"	{lineNumber++; }
 <COMMENT>. 		{/*Ignora el resto*/}
 
@@ -168,6 +168,7 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
 "*"	    { return MULTIPLICATION; } 	/* NEW in example 3 */
 "/"     { return DIVISION; } 		/* NEW in example 3 */
+"//"	{ return FLOOR_DIVISION; }
 
 "("     { return LPAREN; } 			/* NEW in example 3 */
 ")"	    { return RPAREN; } 			/* NEW in example 3 */
