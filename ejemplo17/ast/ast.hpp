@@ -2071,6 +2071,23 @@ class StringNode : public ExpNode
   }
 };
 
+/*!	
+  \class   ConcatNode
+  \brief   Nodo para representar la concatenación de dos cadenas
+  \note    ConcatNode hereda de OperatorNode
+*/
+class ConcatNode : public OperatorNode
+{
+public:
+  ConcatNode(ExpNode *L, ExpNode *R) : OperatorNode(L, R) {}
+
+  int getType() override;
+
+  void printAST() override;
+
+  std::string evaluateString() override;
+};
+
 
 // End of name space lp
 }

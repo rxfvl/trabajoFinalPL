@@ -204,6 +204,8 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 
+"||"	{ return CONCATENATION; }
+
 
 {CADENA} 	{std::string raw = yytext;
 			raw = raw.substr(1, raw.length() - 2); // Eliminar comillas exteriores

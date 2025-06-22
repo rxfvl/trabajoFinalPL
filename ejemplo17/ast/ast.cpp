@@ -1439,6 +1439,42 @@ void lp::ReadStrStmt::evaluate()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // NEW in example 17
 
+void lp::ConcatNode::printAST()
+{
+  std::cout << "ConcatNode: ||" << std::endl;
+  std::cout << "\t";
+  this->_left->printAST();
+  std::cout << "\t";
+  this->_right->printAST();
+}
+
+std::string lp::ConcatNode::evaluateString()
+{
+  if (this->getType() == -1)
+  {
+    return this->_left->evaluateString() + this->_right->evaluateString();
+  }
+  else
+  {
+    warning("Runtime error: incompatible types for", "Concat Operator");
+    return "";
+  }
+}
+
+int lp::ConcatNode::getType()
+{
+  if (_left->getType() == -1 && _right->getType() == -1)
+    return -1;
+  else
+    warning("Runtime error: incompatible types for", "Concat Operator");
+  return -1; // Mantén -1 aunque haya warning
+}
+
+
+
+//////////////////////////////////////////
+///////////////////////////////////////////
+
 void lp::IfStmt::printAST() 
 {
   std::cout << "IfStmt: "  << std::endl;

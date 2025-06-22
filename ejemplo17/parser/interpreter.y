@@ -230,6 +230,8 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 %left LPAREN RPAREN
 
+%left CONCATENATION
+
 %nonassoc  UNARY
 
 // Maximum precedence 
@@ -586,6 +588,11 @@ exp:	NUMBER
 	|	exp FLOOR_DIVISION exp
 		{
 			$$ = new lp::FloorDivisionNode($1,$3);
+		}
+	
+	|	exp CONCATENATION exp
+		{
+			$$ = new lp::ConcatNode($1,$3);
 		}
 
 	|	exp POWER exp 

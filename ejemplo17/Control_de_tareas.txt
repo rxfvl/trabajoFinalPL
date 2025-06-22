@@ -42,19 +42,19 @@ PALABRAS RESERVADAS:									[ ]
 		repeat					[X]
 		until					[X]
 
-	SENTENCIA DE BUCLE PARA:			[ ]
-		for					[ ]
-		from					[ ]
-		to					[ ]
-		step					[ ]
-		do					[ ]
-		end_for					[ ]
+	SENTENCIA DE BUCLE PARA:			[X] En la línea de comandos falla
+		for					[X]
+		from					[X]
+		to					[X]
+		step					[X]
+		do					[X]
+		end_for					[X]
 
 	SENTENCIA DE SELECCIÓN MÚLTIPLE:	[ ]
-		switch					[ ]
-		case					[ ]
-		default					[ ]
-		end_switch				[ ]
+		switch					[X] Falta cambiar ; por :
+		case					[X]
+		default					[X]
+		end_switch				[X]
 
 	MACROS:						[ ]
 		clear_screen				[ ]
@@ -113,8 +113,8 @@ OPERADORES:									[ ]
 		MODULO mod					[X]
 		POTENCIA ^					[X]
 
-	ALFANUMÉRICOS						[ ]
-		CONCATENACION ||			[ ]
+	ALFANUMÉRICOS						[X]
+		CONCATENACION ||			[X]
 
 	RELACIONALES CON NÚMEROS Y CADENAS	[X]
 		IGUALDAD =				[X]
@@ -152,10 +152,10 @@ SENTENCIAS DE CONTROL:								[ ]
 		read_string(identificador)				[X]
 
 	ESCRITURA									[X]
-		print								[X] Faltan alfanuméricos 
+		print								[X] 
 		
 
-	SENTENCIAS DE CONTROL						[X] Falta lógica de bloque
+	SENTENCIAS DE CONTROL						[X] 
 		CONDICIONAL SIMPLE					[X]
 			if condición
 				then lista de sentencias
@@ -177,7 +177,7 @@ SENTENCIAS DE CONTROL:								[ ]
 				lista de sentencias
 			until condición
 
-		BUCLE "for"							[ ]
+		BUCLE "for"							[X] EN línea de comandos falla
 			for identificador
 				from expresión numérica 1
 				to expresión numérica 2
@@ -187,10 +187,10 @@ SENTENCIAS DE CONTROL:								[ ]
 			end_for
 
 		SENTENCIA DE SELECCIÓN MÚLTIPLE:	[ ]
-			switch					[ ]
-			case					[ ]
-			default					[ ]
-			end_switch				[ ]
+			switch					[X]
+			case					[X]
+			default					[X]
+			end_switch				[X]
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
@@ -236,8 +236,8 @@ DE EJECUCIÓN									[ ]
 -------------------------------------------------------------------------------------
 MODOS DE EJECUCIÓN:							[ ]	
 -----------------------------------------------------------------------------------
-	INTERACTIVO							[ ]
-	DESDE FICHERO						[ ]
+	INTERACTIVO							[X]
+	DESDE FICHERO							[X]
 
 
 														CONTROL		FECHA
