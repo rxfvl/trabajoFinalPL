@@ -50,6 +50,16 @@ extern int lineNumber; //!< External line counter
 #include <string.h>
 
 
+std::string toLower(const std::string &str) {
+	std::string result;
+	for (size_t i = 0; i < str.length(); ++i)
+		result += std::tolower(static_cast<unsigned char>(str[i]));
+	return result;
+}
+
+
+
+
 %}
 
 
@@ -118,50 +128,29 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
                       }
 
 
-{IDENTIFIER}   		 {
-						 /* NEW in example 7 */
-						 std::string identifier(yytext);
+{IDENTIFIER} {
+	std::string lexema = toLower(yytext); // usar siempre minúsculas
+	yylval.string = strdup(lexema.c_str());
 
-						/* 
-                          strdup() function returns a pointer to a new string 
-                          which  is a duplicate of the string yytext
-                        */
-						  yylval.string =  strdup(yytext);
+	if (lexema == "mod") return MODULO;
+	if (lexema == "not") return NOT;
+	if (lexema == "or") return OR;
+	if (lexema == "and") return AND;
+	// ...
 
-						/* If the identifier is not in the table of symbols then it is inserted */	
-						 if (table.lookupSymbol(identifier) == false)
-							{
-								/* 
-								 The identifier is inserted into the symbol table 
-								 as undefined Variable with value 0.0
-								*/
-								lp::NumericVariable *n = new lp::NumericVariable(identifier,VARIABLE,UNDEFINED,0.0);
+	if (!table.lookupSymbol(lexema)) {
+		lp::NumericVariable *n = new lp::NumericVariable(lexema, VARIABLE, UNDEFINED, 0.0);
+		table.installSymbol(n);
+		return VARIABLE;
+	} else {
+		lp::Symbol *s = table.getSymbol(lexema);
+		return s->getToken();
+	}
+}
 
-								/* A pointer to the new NumericVariable is inserted into the table of symbols */
-								table.installSymbol(n);
 
-								return VARIABLE;
-							}
 
-						/* MODIFIED in example 11 */
-						/* 
-							If the identifier is in the table of symbols then its token is returned 
-								The identifier can be a variable or a numeric constant
-						*/
-						else 
-							{
-								lp::Symbol	*s = table.getSymbol(identifier);
 
-/*
-								std::cout << "lex: "<< s->getName() 
-										  << "token " << s->getToken()
-  										  << std::endl; 
-*/
-
-								/*  If the identifier is in the table then its token is returned  */
-								return s->getToken();
-							}
-                     }
 
 "-"		{ return MINUS;  } 			/* NEW in example 3 */
 "+"		{ return PLUS;   } 			/* NEW in example 3 */
@@ -174,8 +163,6 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 ")"	    { return RPAREN; } 			/* NEW in example 3 */
 
 
-
-"mod"     { return MODULO; }			/* NEW in example 5 */
 
 "^"	    { return POWER; }			/* NEW in example 5 */
 
@@ -193,12 +180,6 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 ">"		{ return GREATER_THAN; }	/* NEW in example 15 */
 
 "<"		{ return LESS_THAN; }		/* NEW in example 15 */
-
-"not"	{ return NOT; }				/* NEW in example 15 */
-
-"or"	{ return OR; }				/* NEW in example 15 */
-
-"and"	{ return AND; }				/* NEW in example 15 */
 
 "{"		{ return LETFCURLYBRACKET; } 	/* NEW in example 17 */
 
