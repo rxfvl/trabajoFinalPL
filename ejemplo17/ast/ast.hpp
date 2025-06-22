@@ -1739,7 +1739,57 @@ class WhileStmt : public Statement
   void evaluate();
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
+/*!	
+  \class   SwitchStmt
+  \brief   Definition of attributes and methods of SwitchStmt class
+  \note    SwitchStmt Class publicly inherits from Statement class 
+		   and adds its own printAST and evaluate functions
+*/
+class SwitchStmt : public Statement 
+{
+private:
+	ExpNode *_expv; //!< Expression for the case
+	Statement *_stmt; //!< Statement for the case
+
+public:
+/*!		
+	\brief Constructor of SwitchStmt
+	\param expv: pointer to ExpNode, expression for the case
+	\param statement: pointer to Statement, statement of the body of the case 
+	\post  A new SwitchStmt is created with the parameters
+*/
+  SwitchStmt(ExpNode *expv, Statement *statement)
+	{
+		this->_expv = expv;
+		this->_stmt = statement;
+	}
+
+/*!
+	\brief   Print the AST for SwitchStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the SwitchStmt
+	\return  void
+	\sa	   	 printAST
+*/
+  void evaluate();
+
+/*!	
+	\brief   Get the expression associated with the case
+	\return  ExpNode*
+*/
+  ExpNode *getExp()
+  {
+    return this->_expv;
+  }
+};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1783,6 +1833,51 @@ class BlockStmt : public Statement
   void evaluate();
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+/*!	
+  \class   CaseBlockStmt
+  \brief   Definition of attributes and methods of CaseBlockStmt class
+  \note    CaseBlockStmt Class publicly inherits from Statement class 
+           and adds its own printAST and evaluate functions
+*/
+class CaseBlockStmt : public Statement 
+{
+private:
+	ExpNode *_exp; //!< Expression for the case block
+    std::list<SwitchStmt *> *_cases; //!< List of case statements
+    Statement *_def;  //!< Default statement
+
+public:
+/*!		
+	\brief Constructor of CaseBlockStmt
+	\param exp: pointer to ExpNode, expression for the case block
+	\param caseList: pointer to std::list<SwitchStmt *>, list of case statements
+	\param def: pointer to Statement, default statement
+	\post  A new CaseBlockStmt is created with the parameters
+*/
+  CaseBlockStmt(ExpNode *exp, std::list<SwitchStmt *> *caseList, Statement *def)
+	{
+		this->_cases = caseList;
+		this->_exp = exp;
+		this->_def = def;
+	}
+
+/*!
+	\brief   Print the AST for CaseBlockStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the CaseBlockStmt
+	\return  void
+	\sa	   	 printAST
+*/
+  void evaluate();
+};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1822,7 +1917,8 @@ class AST {
 */
   void evaluate();
 };
-
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 /*!	
   \class   RepeatStmt
   \brief   Definition of atributes and methods of RepeatStmt class
@@ -1858,6 +1954,9 @@ public:
 */
 	void evaluate();
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
   \class   ForStmt
@@ -1908,6 +2007,8 @@ public:
   void evaluate();
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 /*!	
   \class   StringNode

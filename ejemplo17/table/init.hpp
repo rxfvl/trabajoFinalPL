@@ -84,6 +84,10 @@ static struct {
 						{"to", TO},
 						{"step", STEP},
 						{"end_for", ENDFOR},
+						{"switch", SWITCH},
+						{"case", CASE},
+						{"default", DEFAULT},
+						{"end_switch", ENDSWITCH},
 						{"not", NOT},
 						{"or", OR},
 						{"and", AND},
@@ -97,7 +101,6 @@ static struct {
 
 
 // NEW in example 13
-
 static struct {    /* Predefined functions names */ 
                 std::string name ;
 				lp::TypePointerDoubleFunction_1 function;

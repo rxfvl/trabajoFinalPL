@@ -147,6 +147,9 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
   std::list<lp::Statement *> *stmts; /* NEW in example 16 */
   lp::Statement *st;				 /* NEW in example 16 */
   lp::AST *prog;					 /* NEW in example 16 */
+
+  lp::SwitchStmt* switcht;
+  std::list<lp::SwitchStmt*> *switchl;
 }
 
 /* Type of the non-terminal symbols */
@@ -157,9 +160,11 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <parameters> listOfExp  restOfListOfExp
 
 %type <stmts> stmtlist
+%type <switcht> case
+%type <switchl> switchlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block repeat for
+%type <st> stmt asgn print read if while block repeat for switch
 
 %type <prog> program
 
@@ -175,6 +180,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /* NEW in example 17: IF, ELSE, WHILE */
 %token PRINT READ IF THEN ELSE ENDIF WHILE ENDWHILE
 %token FOR FROM TO STEP ENDFOR
+%token SWITCH CASE DEFAULT ENDSWITCH
 %token READ_STR
 
 /* NEW in example 17 */
@@ -287,7 +293,22 @@ stmtlist:  /* empty: epsilon rule */
 			 yyclearin; 
        } 
 ;
- 
+
+switchlist:  /* empty: epsilon rule */
+		  { 
+			// create a empty list of statements
+			$$ = new std::list<lp::SwitchStmt *>(); 
+		  }  
+
+        | switchlist case
+		  { 
+			// copy up the list and add the stmt to it
+			$$ = $1;
+			$$->push_back($2);
+
+			
+		}
+;
 
 stmt: SEMICOLON  /* Empty statement: ";" */
 	  {
@@ -335,6 +356,12 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 	 }
 	/**/
 	| for
+	 {
+		// Default action
+		// $$ = $1;
+	 }
+
+	| switch
 	 {
 		// Default action
 		// $$ = $1;
@@ -415,6 +442,37 @@ for: FOR VARIABLE FROM exp TO exp STEP exp DO stmtlist ENDFOR
 			// Create a new for statement node
 			
 			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($8),NULL);
+
+			// To control the interactive mode
+			control--;
+    }
+;
+
+switch:  SWITCH controlSymbol LPAREN exp RPAREN switchlist ENDSWITCH 
+		{
+			// Create a new switch statement node
+			
+			$$ = new lp::CaseBlockStmt($4,$6,NULL);
+
+			// To control the interactive modeW
+			control--;
+    }
+	|
+	SWITCH controlSymbol LPAREN exp RPAREN switchlist DEFAULT stmt ENDSWITCH 
+		{
+			// Create a new switch statement node
+			
+			$$ = new lp::CaseBlockStmt($4,$6,$8);
+
+			// To control the interactive modeW
+			control--;
+    }
+;
+case:  CASE controlSymbol exp SEMICOLON stmtlist 
+		{
+			// Create a new switch statement node
+			
+			$$ = new lp::SwitchStmt($3,new lp::BlockStmt($5));
 
 			// To control the interactive mode
 			control--;

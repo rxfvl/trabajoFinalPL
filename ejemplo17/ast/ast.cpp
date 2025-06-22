@@ -1619,6 +1619,73 @@ void lp::BlockStmt::evaluate()
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+void lp::CaseBlockStmt::printAST() 
+{
+  std::list<SwitchStmt *>::iterator caseIter;
+
+  std::cout << "CaseBlockStmt: "  << std::endl;
+
+  for (caseIter = this->_cases->begin(); caseIter != this->_cases->end(); caseIter++) 
+  {
+     (*caseIter)->printAST();
+  }
+}
+
+
+void lp::CaseBlockStmt::evaluate() 
+{
+  std::list<SwitchStmt *>::iterator caseIter;
+
+	ExpNode * sw = this->_exp;
+	bool df = true;
+	if (sw->getType()==NUMBER){
+		for (caseIter = this->_cases->begin(); caseIter != this->_cases->end(); caseIter++) 
+		{
+			
+			if (sw->evaluateNumber() == (*caseIter)->getExp()->evaluateNumber()){
+				(*caseIter)->evaluate();
+				df = false;
+			}
+		}
+		if (df){
+			this->_def->evaluate();
+		}
+	}
+	else if (sw->getType()==STRING){
+		for (caseIter = this->_cases->begin(); caseIter != this->_cases->end(); caseIter++) 
+		{
+			
+			if (sw->evaluateString() == (*caseIter)->getExp()->evaluateString()){
+				(*caseIter)->evaluate();
+				df = false;
+			}
+		}
+		if (df){
+			this->_def->evaluate();
+		}
+	}
+	else if (sw->getType()==BOOL){
+		for (caseIter = this->_cases->begin(); caseIter != this->_cases->end(); caseIter++) 
+		{
+			
+			if (sw->evaluateBool() == (*caseIter)->getExp()->evaluateBool()){
+				(*caseIter)->evaluate();
+				df = false;
+			}
+		}
+		if (df){
+			this->_def->evaluate();
+		}
+	}
+	else{
+		warning("Error en tiempo de ejecución:", "Los tipos de las expresiones de casos y los valores no son los mismos");
+	}
+  
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 void lp::RepeatStmt::printAST() 
 {
 	std::cout << "RepeatStmt:" << std::endl;
@@ -1639,6 +1706,28 @@ void lp::RepeatStmt::evaluate()
 	} while (this->_cond->evaluateBool() == true);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::SwitchStmt::printAST() 
+{
+  	std::cout << "SwitchStmt"  << std::endl;
+	std::cout << "\t";
+	this->_expv->printAST();
+	std::cout << "\t";
+	this->_stmt->printAST();
+
+
+  std::cout << std::endl;
+}
+
+
+void lp::SwitchStmt::evaluate() 
+
+{
+  this->_stmt->evaluate();
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
