@@ -3,7 +3,7 @@ b := 0;
 
 repeat
 a := a+1;
-print a;
+print (a);
 until (a > 4);
 
-print a;
+print (a);

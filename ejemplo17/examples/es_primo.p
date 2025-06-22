@@ -1,4 +1,4 @@
-print 'Inserte un número';
+print ('Inserte un numero');
 read(numero);
 
 i := 2;
@@ -7,11 +7,11 @@ no_primo := false;
 while ((i<numero) and (no_primo = false)) do
     if ((numero mod i) = 0) then
         no_primo := true;
-        print 'El número no es primo';
-    endif;
+        print ('El numero no es primo');
+    end_if;
     i := i+1;
-endwhile;
+end_while
 
 if (no_primo = false) then
-    print 'El número es primo';
-endif;
+    print ('El numero es primo');
+end_if;

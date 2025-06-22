@@ -1,6 +1,6 @@
 read(dato);
 
-print dato;
+print (dato);
 
 if (dato < 0) then f := 0 ;
 else
@@ -14,8 +14,8 @@ else
         f := f * i;
         i := i - 1;
 
-    endwhile
+    end_while
 
-endif
+end_if
 
-print f; 
+print (f); 
