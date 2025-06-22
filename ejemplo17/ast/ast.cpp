@@ -1505,8 +1505,88 @@ void lp::WhileStmt::evaluate()
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void lp::ForStmt::printAST() 
+{
+  std::cout << "ForStmt: "  << std::endl;
+  
+	std::cout << "\t";
+	this->_inf_lim->printAST();
+	std::cout << "\t";
+	this->_sup_lim->printAST();
+	std::cout << "\t";
+	if(this->_paso !=NULL){
+		this->_paso->printAST();
+	}
+	std::cout << "\t";
+	this->_stmt->printAST();
+  std::cout << std::endl;
+}
 
 
+void lp::ForStmt::evaluate() 
+{
+	
+  lp::NumericVariable *nm = (lp::NumericVariable *) table.getSymbol(this->_var);
+
+  double ivalue, fvalue, pvalue;
+  ivalue = this->_inf_lim->evaluateNumber();
+  fvalue = this->_sup_lim->evaluateNumber();
+
+  if (this->_paso == NULL){
+	pvalue = 1.0;
+  }
+  else{
+	pvalue = this->_paso->evaluateNumber();
+  }
+  
+  nm->setValue(ivalue);
+
+  if (nm->getType() == UNDEFINED){
+			 nm->setType(NUMBER);
+  }
+  bool cond =true;
+  bool pos_step = pvalue > 0;
+  bool neg_step = pvalue < 0;
+  if (pos_step){
+	  cond = nm->getValue() <= fvalue;
+  }
+  else if (neg_step){
+	  cond = nm->getValue() >= fvalue;
+  }
+  //Control de bucles infinitos
+  if(ivalue<fvalue && pvalue<=0){
+	  execerror("Error en el bucle for: Bucle infinito", "ForStmt::evaluate");
+  }
+  else if(ivalue>fvalue && pvalue>=0){
+	  execerror("Error en el bucle for: Bucle infinito", "ForStmt::evaluate");
+  }
+  else if(ivalue==fvalue && pvalue==0){
+	  execerror("Error en el bucle for: Bucle infinito", "ForStmt::evaluate");
+  }
+  while (cond)
+  {	
+	
+	
+	this->_stmt->evaluate();
+	nm->setValue(nm->getValue()+pvalue);
+	if(pos_step){
+		if(nm->getValue()>fvalue){
+			cond = false;
+		}
+		
+	}
+	else{
+		if(nm->getValue()<fvalue){
+			cond = false;
+		}
+	}
+	
+  }
+
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1536,25 +1616,28 @@ void lp::BlockStmt::evaluate()
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 void lp::RepeatStmt::printAST() 
 {
 	std::cout << "RepeatStmt:" << std::endl;
-	std::cout << "\tBody:" << std::endl;
-	_stmt->printAST();
-	std::cout << "\tUntil condition:" << std::endl;
-	_cond->printAST();
+	//Body of the repeat loop
+	std::cout << "\t";
+	this->_stmt->printAST();
+	//Condition
+	std::cout << "\t";
+	this->_cond->printAST();
+
+	std::cout << std::endl;
 }
 
 void lp::RepeatStmt::evaluate() 
 {
 	do {
-		_stmt->evaluate();
-	} while (_cond->evaluateBool() == false);
+		this->_stmt->evaluate();
+	} while (this->_cond->evaluateBool() == true);
 }
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -1859,6 +1859,55 @@ public:
 	void evaluate();
 };
 
+/*!	
+  \class   ForStmt
+  \brief   Definition of atributes and methods of ForStmt class
+  \note    ForStmt Class publicly inherits from Statement class 
+		       and adds its own printAST and evaluate functions
+*/
+class ForStmt : public Statement 
+{
+private:
+  std::string _var; //!< Name of the loop variable
+  ExpNode *_inf_lim; //!< Initial value of the loop variable
+  ExpNode *_sup_lim; //!< Upper limit of the loop variable
+  ExpNode *_paso; //!< Step value for the loop variable
+  Statement *_stmt; //!< Statement of the body of the for loop
+
+public:
+/*!		
+	\brief Constructor of ForStmt
+	\param var: string, name of the loop variable
+	\param inf_lim: pointer to ExpNode, initial value of the loop variable
+	\param sup_lim: pointer to ExpNode, upper limit of the loop variable
+	\param statement: pointer to Statement, statement of the body of the loop 
+	\param paso: pointer to ExpNode (optional), step value for the loop variable
+	\post  A new ForStmt is created with the parameters
+*/
+  ForStmt(std::string var, ExpNode *inf_lim, ExpNode *sup_lim, Statement *statement, ExpNode *paso = NULL)
+	{
+		this->_var = var;
+		this->_inf_lim = inf_lim;
+		this->_sup_lim = sup_lim;
+		this->_paso = paso;
+		this->_stmt = statement;
+	}
+
+/*!
+	\brief   Print the AST for ForStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the ForStmt
+	\return  void
+	\sa	   	 printAST
+*/
+  void evaluate();
+};
+
 
 /*!	
   \class   StringNode

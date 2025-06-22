@@ -159,7 +159,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <stmts> stmtlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block repeat
+%type <st> stmt asgn print read if while block repeat for
 
 %type <prog> program
 
@@ -174,6 +174,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 /* NEW in example 17: IF, ELSE, WHILE */
 %token PRINT READ IF THEN ELSE ENDIF WHILE ENDWHILE
+%token FOR FROM TO STEP ENDFOR
 %token READ_STR
 
 /* NEW in example 17 */
@@ -326,8 +327,18 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	 }
-	
+	/**/
 	| repeat
+	 {
+		// Default action
+		// $$ = $1;
+	 }
+	/**/
+	| for
+	 {
+		// Default action
+		// $$ = $1;
+	 }
 ;
 
 
@@ -389,6 +400,26 @@ cond: 	LPAREN exp RPAREN
 		}
 ;
 
+for: FOR VARIABLE FROM exp TO exp STEP exp DO stmtlist ENDFOR
+		{
+			// Create a new for statement node
+			
+			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($10),$8);
+
+			// To control the interactive mode
+			control--;
+    }
+	|
+	FOR VARIABLE FROM exp TO exp DO stmtlist ENDFOR
+		{
+			// Create a new for statement node
+			
+			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($8),NULL);
+
+			// To control the interactive mode
+			control--;
+    }
+;
 
 asgn:   VARIABLE ASSIGNMENT exp 
 		{ 
