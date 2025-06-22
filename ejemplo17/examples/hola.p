@@ -1,4 +1,6 @@
-a := 3;
-b := 2;
+a:=0;
 
-if (a > b) then print a; else print b; endif
+while (a<20) do
+    print a;
+    a:= a+1;
+endwhile

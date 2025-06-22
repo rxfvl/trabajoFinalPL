@@ -23,15 +23,15 @@ PALABRAS RESERVADAS:									[ ]
 	false						[X]
 
 	read						[X]
-	read_string					[ ]
+	read_string					[X]
 
 	print						[X]
 
-	SENTENCIA CONDICIONAL:				[ ]
+	SENTENCIA CONDICIONAL:				[X]
 		if						[X]
 		then					[X]
 		else					[X]
-		end_if					[ ] Falta lógica de bloque
+		end_if					[X] 
 
 	SENTENCIA DE BUCLE MIENTRAS:		[ ]
 		while					[X]

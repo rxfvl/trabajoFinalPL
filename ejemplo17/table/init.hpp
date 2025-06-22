@@ -85,6 +85,7 @@ static struct {
 						{"then", THEN},
 						{"endwhile", ENDWHILE},
 						{"read_str", READ_STR},
+						{"mod", MODULO},
 						{"",      0}
 	                   };
 

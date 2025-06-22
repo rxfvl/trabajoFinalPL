@@ -1,0 +1,17 @@
+print 'Inserte un número';
+read(numero);
+
+i := 2;
+no_primo := false;
+
+while ((i<numero) and (no_primo = false)) do
+    if ((numero mod i) = 0) then
+        no_primo := true;
+        print 'El número no es primo';
+    endif;
+    i := i+1;
+endwhile;
+
+if (no_primo = false) then
+    print 'El número es primo';
+endif;
