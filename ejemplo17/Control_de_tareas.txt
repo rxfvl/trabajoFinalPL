@@ -81,7 +81,7 @@ NÚMERO:							[X]
 -------------------------------------------------------------------------------------
 	ENTEROS 					[X]
 	REALES DE PUNTO FIJO				[X]
-	REALES NOTACION CIENTÍFICA			[ ]
+	REALES NOTACION CIENTÍFICA			[X]
 
 	TODOS SON TRATADOS COMO NÚMERO			[X]
 
@@ -209,28 +209,28 @@ OBSERVACIONES:											[X]
 
 														CONTROL		FECHA
 -------------------------------------------------------------------------------------
-CONTROL DE ERRORES:										[ ]	
+CONTROL DE ERRORES:										[X]	
 -------------------------------------------------------------------------------------
-LÉXICOS										[ ]
+LÉXICOS										[X]
 	IDENTIFICADOR MAL ESCRITO 				[X]
-	NÚMERO MAL ESCRITO 						[ ]
+	NÚMERO MAL ESCRITO 						[X]
 	SIMBOLO NO PERMITIDO					[X]
-	OTROS									[ ]
+	OTROS									[X]
 
-SINTÁCTICOS									[ ]
+SINTÁCTICOS									[X]
 	SENTENCIA DE CONTROL MAL ESCRITA		[X]
-	SENTENCIA CON ARGUMENTOS INCOMPATIBLES 	[ ]
-	OTROS						    		[ ]
+	SENTENCIA CON ARGUMENTOS INCOMPATIBLES 	[X]
+	OTROS						    		[X]
 
 SEMÁNTICOS										[X]
 	ARGUMENTOS DE FUNCIONES INCOMPATIBLES  	[X]
 	OPERANDOS DE EXPRESIONES INCOMPATIBLES 	[X]
 
-DE EJECUCIÓN									[ ]
+DE EJECUCIÓN									[X]
 	SENTENCIA "PARA" CON BUCLE INFINITO		[X]
-	FICHERO INEXISTENTE						[ ]
-	FICHERO CON EXTENSIÓN INCORRECTA		[ ]
-	OTROS									[ ]
+	FICHERO INEXISTENTE						[X]
+	FICHERO CON EXTENSIÓN INCORRECTA		[X]
+	OTROS									[X]
 
 											CONTROL		FECHA
 -------------------------------------------------------------------------------------

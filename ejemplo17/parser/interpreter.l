@@ -75,7 +75,9 @@ NUMBER2 {DIGIT}*\.{DIGIT}+
 
 IDENTIFIER {LETTER}({LETTER}|{DIGIT}|_)*
 
+EXPONENT ([eE][+-]?{DIGIT}+)
 
+NUMBER3 ({NUMBER2}|{NUMBER1}){EXPONENT}?
 
 CADENA \'([^\\\']|\\[nt'\\])*\'
 
@@ -130,6 +132,11 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
                        return NUMBER; 
                       }
+
+{NUMBER3}	{
+             yylval.number = strtod(yytext, NULL);
+             return NUMBER;
+           }
 
 
 {IDENTIFIER} {

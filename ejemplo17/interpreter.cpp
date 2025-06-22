@@ -111,7 +111,21 @@ int main(int argc, char *argv[])
  */
  if (argc == 2) 
  {
-     yyin = fopen(argv[1],"r");
+  std::string filename = argv[1];
+
+  if (filename.size() < 3 ||
+    filename.substr(filename.size() - 2) != ".p")
+    {
+      std::cerr << "Error: extensión inválida, debe ser .p\n";
+      return EXIT_FAILURE;
+    }
+
+    yyin = fopen(filename.c_str(), "r");
+    if (!yyin) {
+      std::cerr << "Error: archivo inexistente o no legible\n";
+      return EXIT_FAILURE;
+    }
+  //yyin = fopen(argv[1],"r");
 
 	 interactiveMode = false;
  }
