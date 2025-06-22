@@ -93,8 +93,10 @@ static struct {
 						{"and", AND},
 						{"then", THEN},
 						{"end_while", ENDWHILE},
-						{"read_str", READ_STR},
+						{"read_string", READ_STR},
 						{"mod", MODULO},
+						{"clear_screen", CLEAR},
+						{"place", PLACE},
 						{"",      0}
 	                   };
 

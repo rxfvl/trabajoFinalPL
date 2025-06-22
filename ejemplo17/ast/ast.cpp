@@ -1470,6 +1470,50 @@ int lp::ConcatNode::getType()
   return -1; // Mantén -1 aunque haya warning
 }
 
+////////////////////////////////////////
+////////////////////////////////////////
+
+void lp::ClearStmt::printAST() 
+{
+  std::cout << "ClearStmt"  << std::endl;
+
+
+  std::cout << std::endl;
+}
+
+
+void lp::ClearStmt::evaluate() 
+
+{
+  std::cout<<CLEAR_SCREEN;
+  PLACE(0,0);
+
+}
+
+void lp::PlaceStmt::printAST() 
+{
+  std::cout << "PlaceStmt"  << std::endl;
+  	std::cout << "\t";
+	this->_exp1->printAST();
+	std::cout << "\t";
+	this->_exp2->printAST();
+
+
+  std::cout << std::endl;
+}
+
+
+void lp::PlaceStmt::evaluate() 
+
+{
+  if(this->_exp1->getType()!=this->_exp2->getType() || this->_exp1->getType()!= NUMBER){
+	execerror("Error en la función \"lugar\", los tipos de los argumentos no son correctos", "PlaceStmt::evaluate");
+  }
+  else{
+	PLACE((int)this->_exp1->evaluateNumber(),(int)this->_exp2->evaluateNumber());
+  }
+
+}
 
 
 //////////////////////////////////////////

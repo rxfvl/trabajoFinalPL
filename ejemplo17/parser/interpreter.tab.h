@@ -55,58 +55,61 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     SEMICOLON = 258,               /* SEMICOLON  */
-    PRINT = 259,                   /* PRINT  */
-    READ = 260,                    /* READ  */
-    IF = 261,                      /* IF  */
-    THEN = 262,                    /* THEN  */
-    ELSE = 263,                    /* ELSE  */
-    ENDIF = 264,                   /* ENDIF  */
-    WHILE = 265,                   /* WHILE  */
-    ENDWHILE = 266,                /* ENDWHILE  */
-    FOR = 267,                     /* FOR  */
-    FROM = 268,                    /* FROM  */
-    TO = 269,                      /* TO  */
-    STEP = 270,                    /* STEP  */
-    ENDFOR = 271,                  /* ENDFOR  */
-    SWITCH = 272,                  /* SWITCH  */
-    CASE = 273,                    /* CASE  */
-    DEFAULT = 274,                 /* DEFAULT  */
-    ENDSWITCH = 275,               /* ENDSWITCH  */
-    READ_STR = 276,                /* READ_STR  */
-    LETFCURLYBRACKET = 277,        /* LETFCURLYBRACKET  */
-    RIGHTCURLYBRACKET = 278,       /* RIGHTCURLYBRACKET  */
-    REPEAT = 279,                  /* REPEAT  */
-    UNTIL = 280,                   /* UNTIL  */
-    DO = 281,                      /* DO  */
-    STRING = 282,                  /* STRING  */
-    ASSIGNMENT = 283,              /* ASSIGNMENT  */
-    COMMA = 284,                   /* COMMA  */
-    NUMBER = 285,                  /* NUMBER  */
-    BOOL = 286,                    /* BOOL  */
-    VARIABLE = 287,                /* VARIABLE  */
-    UNDEFINED = 288,               /* UNDEFINED  */
-    CONSTANT = 289,                /* CONSTANT  */
-    BUILTIN = 290,                 /* BUILTIN  */
-    OR = 291,                      /* OR  */
-    AND = 292,                     /* AND  */
-    GREATER_OR_EQUAL = 293,        /* GREATER_OR_EQUAL  */
-    LESS_OR_EQUAL = 294,           /* LESS_OR_EQUAL  */
-    GREATER_THAN = 295,            /* GREATER_THAN  */
-    LESS_THAN = 296,               /* LESS_THAN  */
-    EQUAL = 297,                   /* EQUAL  */
-    NOT_EQUAL = 298,               /* NOT_EQUAL  */
-    NOT = 299,                     /* NOT  */
-    PLUS = 300,                    /* PLUS  */
-    MINUS = 301,                   /* MINUS  */
-    MULTIPLICATION = 302,          /* MULTIPLICATION  */
-    DIVISION = 303,                /* DIVISION  */
-    MODULO = 304,                  /* MODULO  */
-    FLOOR_DIVISION = 305,          /* FLOOR_DIVISION  */
-    LPAREN = 306,                  /* LPAREN  */
-    RPAREN = 307,                  /* RPAREN  */
-    CONCATENATION = 308,           /* CONCATENATION  */
-    UNARY = 309,                   /* UNARY  */
-    POWER = 310                    /* POWER  */
+    COLON = 259,                   /* COLON  */
+    PRINT = 260,                   /* PRINT  */
+    READ = 261,                    /* READ  */
+    IF = 262,                      /* IF  */
+    THEN = 263,                    /* THEN  */
+    ELSE = 264,                    /* ELSE  */
+    ENDIF = 265,                   /* ENDIF  */
+    WHILE = 266,                   /* WHILE  */
+    ENDWHILE = 267,                /* ENDWHILE  */
+    CLEAR = 268,                   /* CLEAR  */
+    PLACE = 269,                   /* PLACE  */
+    FOR = 270,                     /* FOR  */
+    FROM = 271,                    /* FROM  */
+    TO = 272,                      /* TO  */
+    STEP = 273,                    /* STEP  */
+    ENDFOR = 274,                  /* ENDFOR  */
+    SWITCH = 275,                  /* SWITCH  */
+    CASE = 276,                    /* CASE  */
+    DEFAULT = 277,                 /* DEFAULT  */
+    ENDSWITCH = 278,               /* ENDSWITCH  */
+    READ_STR = 279,                /* READ_STR  */
+    LETFCURLYBRACKET = 280,        /* LETFCURLYBRACKET  */
+    RIGHTCURLYBRACKET = 281,       /* RIGHTCURLYBRACKET  */
+    REPEAT = 282,                  /* REPEAT  */
+    UNTIL = 283,                   /* UNTIL  */
+    DO = 284,                      /* DO  */
+    STRING = 285,                  /* STRING  */
+    ASSIGNMENT = 286,              /* ASSIGNMENT  */
+    COMMA = 287,                   /* COMMA  */
+    NUMBER = 288,                  /* NUMBER  */
+    BOOL = 289,                    /* BOOL  */
+    VARIABLE = 290,                /* VARIABLE  */
+    UNDEFINED = 291,               /* UNDEFINED  */
+    CONSTANT = 292,                /* CONSTANT  */
+    BUILTIN = 293,                 /* BUILTIN  */
+    OR = 294,                      /* OR  */
+    AND = 295,                     /* AND  */
+    GREATER_OR_EQUAL = 296,        /* GREATER_OR_EQUAL  */
+    LESS_OR_EQUAL = 297,           /* LESS_OR_EQUAL  */
+    GREATER_THAN = 298,            /* GREATER_THAN  */
+    LESS_THAN = 299,               /* LESS_THAN  */
+    EQUAL = 300,                   /* EQUAL  */
+    NOT_EQUAL = 301,               /* NOT_EQUAL  */
+    NOT = 302,                     /* NOT  */
+    PLUS = 303,                    /* PLUS  */
+    MINUS = 304,                   /* MINUS  */
+    MULTIPLICATION = 305,          /* MULTIPLICATION  */
+    DIVISION = 306,                /* DIVISION  */
+    MODULO = 307,                  /* MODULO  */
+    FLOOR_DIVISION = 308,          /* FLOOR_DIVISION  */
+    LPAREN = 309,                  /* LPAREN  */
+    RPAREN = 310,                  /* RPAREN  */
+    CONCATENATION = 311,           /* CONCATENATION  */
+    UNARY = 312,                   /* UNARY  */
+    POWER = 313                    /* POWER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -129,7 +132,7 @@ union YYSTYPE
   lp::SwitchStmt* switcht;
   std::list<lp::SwitchStmt*> *switchl;
 
-#line 133 "interpreter.tab.h"
+#line 136 "interpreter.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

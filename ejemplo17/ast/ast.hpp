@@ -2089,6 +2089,71 @@ public:
 };
 
 
+class ClearStmt : public Statement 
+{
+public:
+/*!		
+	\brief Constructor of ClearStmt
+	\post  A new ClearStmt is created
+*/
+  ClearStmt() {}
+
+/*!
+	\brief   Print the AST for ClearStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the ClearStmt
+	\return  void
+	\sa	   	 printAST
+*/
+  void evaluate();
+};
+
+/*!	
+  \class   PlaceStmt
+  \brief   Definition of attributes and methods of PlaceStmt class
+  \note    PlaceStmt Class publicly inherits from Statement class 
+           and adds its own printAST and evaluate functions
+*/
+class PlaceStmt : public Statement 
+{
+private:
+  ExpNode *_exp1; //!< First expression for placement
+  ExpNode *_exp2; //!< Second expression for placement
+
+public:
+/*!		
+	\brief Constructor of PlaceStmt
+	\param exp1: pointer to ExpNode, first expression for placement
+	\param exp2: pointer to ExpNode, second expression for placement
+	\post  A new PlaceStmt is created with the parameters
+*/
+  PlaceStmt(ExpNode *exp1, ExpNode *exp2)
+	{
+		this->_exp1 = exp1;
+		this->_exp2 = exp2;
+	}
+
+/*!
+	\brief   Print the AST for PlaceStmt
+	\return  void
+	\sa		   evaluate
+*/
+  void printAST();
+
+/*!	
+	\brief   Evaluate the PlaceStmt
+	\return  void
+	\sa	   	 printAST
+*/
+  void evaluate();
+};
+
+
 // End of name space lp
 }
 

@@ -164,7 +164,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 %type <switchl> switchlist
 
 // New in example 17: if, while, block
-%type <st> stmt asgn print read if while block repeat for switch
+%type <st> stmt asgn print read if while block repeat for switch clear place
 
 %type <prog> program
 
@@ -174,11 +174,11 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 /*******************************************/
 /* NEW in example 5 */
-%token SEMICOLON
+%token SEMICOLON COLON
 /*******************************************/
 
 /* NEW in example 17: IF, ELSE, WHILE */
-%token PRINT READ IF THEN ELSE ENDIF WHILE ENDWHILE
+%token PRINT READ IF THEN ELSE ENDIF WHILE ENDWHILE CLEAR PLACE
 %token FOR FROM TO STEP ENDFOR
 %token SWITCH CASE DEFAULT ENDSWITCH
 %token READ_STR
@@ -368,6 +368,17 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// Default action
 		// $$ = $1;
 	 }
+
+	| clear
+	{
+		// Default action
+		// $$ = $1;
+	}
+	| place
+	 {
+		// Default action
+		// $$ = $1;
+	 }
 ;
 
 
@@ -460,17 +471,17 @@ switch:  SWITCH controlSymbol LPAREN exp RPAREN switchlist ENDSWITCH
 			control--;
     }
 	|
-	SWITCH controlSymbol LPAREN exp RPAREN switchlist DEFAULT stmt ENDSWITCH 
+	SWITCH controlSymbol LPAREN exp RPAREN switchlist DEFAULT COLON stmt ENDSWITCH 
 		{
 			// Create a new switch statement node
 			
-			$$ = new lp::CaseBlockStmt($4,$6,$8);
+			$$ = new lp::CaseBlockStmt($4,$6,$9);
 
 			// To control the interactive modeW
 			control--;
     }
 ;
-case:  CASE controlSymbol exp SEMICOLON stmtlist 
+case:  CASE controlSymbol exp COLON stmtlist 
 		{
 			// Create a new switch statement node
 			
@@ -505,10 +516,10 @@ asgn:   VARIABLE ASSIGNMENT exp
 		}
 ;
 
-print:  PRINT exp 
+print:  PRINT LPAREN exp RPAREN 
 		{
 			// Create a new print node
-			 $$ = new lp::PrintStmt($2);
+			 $$ = new lp::PrintStmt($3);
 		}
 ;	
 
@@ -527,6 +538,23 @@ read:  READ LPAREN VARIABLE RPAREN
 	| READ_STR LPAREN VARIABLE RPAREN
 		{
 			$$ = new lp::ReadStrStmt($3);
+		}
+;
+
+clear:  CLEAR
+		{
+			// Create a new clear node
+			$$ = new lp::ClearStmt();
+			 
+
+		}
+;
+place:  PLACE  LPAREN exp COMMA exp RPAREN
+		{
+			// Create a new clear node
+			$$ = new lp::PlaceStmt($3,$5);
+			 
+
 		}
 ;
 

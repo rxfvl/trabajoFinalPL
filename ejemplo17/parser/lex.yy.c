@@ -360,8 +360,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 34
-#define YY_END_OF_BUFFER 35
+#define YY_NUM_RULES 35
+#define YY_END_OF_BUFFER 36
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -371,12 +371,12 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[54] =
     {   0,
-        0,    0,    0,    0,    0,    0,   35,   31,    1,    2,
-        5,   31,   17,   18,   14,   13,    4,   12,   31,   15,
-       10,   31,    3,   26,   21,   25,   11,   19,   27,   31,
-       28,   32,   33,    9,    8,    9,    5,    0,   30,    0,
-        6,   10,   16,   10,   10,   20,   24,   22,   23,   11,
-       29,    7,    0
+        0,    0,    0,    0,    0,    0,   36,   32,    1,    2,
+        6,   32,   18,   19,   15,   14,    5,   13,   32,   16,
+       11,    4,    3,   27,   22,   26,   12,   20,   28,   32,
+       29,   33,   34,   10,    9,   10,    6,    0,   31,    0,
+        7,   11,   17,   11,   11,   21,   25,   23,   24,   12,
+       30,    8,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -863,45 +863,50 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 105 "interpreter.l"
+#line 104 "interpreter.l"
+{ return COLON; }
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 107 "interpreter.l"
 {
 			/* NEW in example 14 */
 			return COMMA;
 		}
 	YY_BREAK
-case 5:
+case 6:
 YY_RULE_SETUP
-#line 110 "interpreter.l"
+#line 112 "interpreter.l"
 {
 			/*Ignora la linea*/
 		}
 	YY_BREAK
-case 6:
+case 7:
 YY_RULE_SETUP
-#line 114 "interpreter.l"
+#line 116 "interpreter.l"
 {
 			BEGIN(COMMENT);
 		}
 	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 118 "interpreter.l"
-{BEGIN(INITIAL); }
-	YY_BREAK
 case 8:
-/* rule 8 can match eol */
-YY_RULE_SETUP
-#line 119 "interpreter.l"
-{lineNumber++; }
-	YY_BREAK
-case 9:
 YY_RULE_SETUP
 #line 120 "interpreter.l"
-{/*Ignora el resto*/}
+{BEGIN(INITIAL); }
+	YY_BREAK
+case 9:
+/* rule 9 can match eol */
+YY_RULE_SETUP
+#line 121 "interpreter.l"
+{lineNumber++; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 122 "interpreter.l"
+{/*Ignora el resto*/}
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 124 "interpreter.l"
 {
 					  /* MODIFIED in example 4 */
 					  /* Conversion of type and sending of the numerical value to the parser */
@@ -910,9 +915,9 @@ YY_RULE_SETUP
                        return NUMBER; 
                       }
 	YY_BREAK
-case 11:
+case 12:
 YY_RULE_SETUP
-#line 131 "interpreter.l"
+#line 133 "interpreter.l"
 {
 	std::string lexema = toLower(yytext); // usar siempre minúsculas
 	yylval.string = strdup(lexema.c_str());
@@ -933,100 +938,100 @@ YY_RULE_SETUP
 	}
 }
 	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 155 "interpreter.l"
-{ return MINUS;  } 			/* NEW in example 3 */
-	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 156 "interpreter.l"
-{ return PLUS;   } 			/* NEW in example 3 */
+#line 157 "interpreter.l"
+{ return MINUS;  } 			/* NEW in example 3 */
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 158 "interpreter.l"
-{ return MULTIPLICATION; } 	/* NEW in example 3 */
+{ return PLUS;   } 			/* NEW in example 3 */
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 159 "interpreter.l"
-{ return DIVISION; } 		/* NEW in example 3 */
+#line 160 "interpreter.l"
+{ return MULTIPLICATION; } 	/* NEW in example 3 */
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 160 "interpreter.l"
-{ return FLOOR_DIVISION; }
+#line 161 "interpreter.l"
+{ return DIVISION; } 		/* NEW in example 3 */
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 162 "interpreter.l"
-{ return LPAREN; } 			/* NEW in example 3 */
+{ return FLOOR_DIVISION; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 163 "interpreter.l"
-{ return RPAREN; } 			/* NEW in example 3 */
+#line 164 "interpreter.l"
+{ return LPAREN; } 			/* NEW in example 3 */
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 167 "interpreter.l"
-{ return POWER; }			/* NEW in example 5 */
+#line 165 "interpreter.l"
+{ return RPAREN; } 			/* NEW in example 3 */
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 169 "interpreter.l"
-{ return ASSIGNMENT; }		/* NEW in example 7 */
+{ return POWER; }			/* NEW in example 5 */
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 172 "interpreter.l"
-{ return EQUAL; }			/* NEW in example 15 */
+#line 171 "interpreter.l"
+{ return ASSIGNMENT; }		/* NEW in example 7 */
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 174 "interpreter.l"
-{ return NOT_EQUAL; }		/* NEW in example 15 */
+{ return EQUAL; }			/* NEW in example 15 */
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 176 "interpreter.l"
-{ return GREATER_OR_EQUAL; }/* NEW in example 15 */
+{ return NOT_EQUAL; }		/* NEW in example 15 */
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 178 "interpreter.l"
-{ return LESS_OR_EQUAL; }	/* NEW in example 15 */
+{ return GREATER_OR_EQUAL; }/* NEW in example 15 */
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 180 "interpreter.l"
-{ return GREATER_THAN; }	/* NEW in example 15 */
+{ return LESS_OR_EQUAL; }	/* NEW in example 15 */
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 182 "interpreter.l"
-{ return LESS_THAN; }		/* NEW in example 15 */
+{ return GREATER_THAN; }	/* NEW in example 15 */
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 184 "interpreter.l"
-{ return LETFCURLYBRACKET; } 	/* NEW in example 17 */
+{ return LESS_THAN; }		/* NEW in example 15 */
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 186 "interpreter.l"
-{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
+{ return LETFCURLYBRACKET; } 	/* NEW in example 17 */
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 188 "interpreter.l"
-{ return CONCATENATION; }
+{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 	YY_BREAK
 case 30:
-/* rule 30 can match eol */
 YY_RULE_SETUP
-#line 191 "interpreter.l"
+#line 190 "interpreter.l"
+{ return CONCATENATION; }
+	YY_BREAK
+case 31:
+/* rule 31 can match eol */
+YY_RULE_SETUP
+#line 193 "interpreter.l"
 {std::string raw = yytext;
 			raw = raw.substr(1, raw.length() - 2); // Eliminar comillas exteriores
 
@@ -1052,7 +1057,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(ERROR):
 case YY_STATE_EOF(COMMENT):
-#line 213 "interpreter.l"
+#line 215 "interpreter.l"
 { /* The interpreter finishes when finds the end of file character */
 		/*  PLACE(24,10);
 	  	  std::cout <<  BICYAN;
@@ -1064,9 +1069,9 @@ case YY_STATE_EOF(COMMENT):
 	  	  return 0;
 	}
 	YY_BREAK
-case 31:
+case 32:
 YY_RULE_SETUP
-#line 225 "interpreter.l"
+#line 227 "interpreter.l"
 { 	
 									/* Any other character */
 									/* MODIFIIED in example 3 */
@@ -1080,9 +1085,9 @@ YY_RULE_SETUP
 									yymore();  
 								}
 	YY_BREAK
-case 32:
+case 33:
 YY_RULE_SETUP
-#line 238 "interpreter.l"
+#line 240 "interpreter.l"
 { /* MODIFIED in examples 5, 7, 15 */
 								  /* NEW in example 3 */
 								  /* 
@@ -1092,10 +1097,10 @@ YY_RULE_SETUP
 									yymore(); 
 								}
 	YY_BREAK
-case 33:
-/* rule 33 can match eol */
+case 34:
+/* rule 34 can match eol */
 YY_RULE_SETUP
-#line 247 "interpreter.l"
+#line 249 "interpreter.l"
 { 
 								/* NEW in example 3 */
 								/* Rewind one position */
@@ -1108,12 +1113,12 @@ YY_RULE_SETUP
    								BEGIN(INITIAL);
 							}
 	YY_BREAK
-case 34:
+case 35:
 YY_RULE_SETUP
-#line 258 "interpreter.l"
+#line 260 "interpreter.l"
 ECHO;
 	YY_BREAK
-#line 1117 "lex.yy.c"
+#line 1122 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2109,7 +2114,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 258 "interpreter.l"
+#line 260 "interpreter.l"
 
 
 

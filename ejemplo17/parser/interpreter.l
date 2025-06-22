@@ -101,6 +101,8 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 			return SEMICOLON;
 		}
 
+":"		{ return COLON; }
+
 
 ","		{
 			/* NEW in example 14 */
