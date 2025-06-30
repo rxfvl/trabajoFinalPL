@@ -146,7 +146,7 @@ class NumericVariable:public lp::Variable
 /*!	
 	\name Operators
 */
-	
+	using Variable::operator=;
 /*!		
 	\brief  Assignment Operator
 	\param  n: objectoof NumericVariable class

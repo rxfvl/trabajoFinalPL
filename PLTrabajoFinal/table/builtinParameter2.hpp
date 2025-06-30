@@ -132,7 +132,7 @@ class BuiltinParameter2:public lp::Builtin
 /*!	
 	\name Operators
 */
-	
+	using Builtin::operator=;
 /*!		
 	\brief  Assignment Operator
 	\param  f: objectoof BuiltinParameter2 class

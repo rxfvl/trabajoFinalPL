@@ -20,6 +20,7 @@ class StringVariable : public lp::Variable {
 	std::string _value; //!< Value of the string variable
 
  public:
+	using Variable::operator=;
 	/*!		
 		\brief Constructor
 		\param name: variable identifier

@@ -1779,7 +1779,7 @@ yyreduce:
 						it != (yyval.stmts)->end(); 
 						it++)
 				{
-					(*it)->printAST();
+					// (*it)->printAST();
 					(*it)->evaluate();
 					
 				}

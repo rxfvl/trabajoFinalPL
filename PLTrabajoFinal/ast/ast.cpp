@@ -1295,17 +1295,20 @@ void lp::PrintStmt::evaluate()
 	switch(this->_exp->getType())
 	{
 		case NUMBER:
-			std::cout << this->_exp->evaluateNumber() << std::endl;
+			// std::cout << this->_exp->evaluateNumber() << std::endl;
+			std::cout << this->_exp->evaluateNumber();
 			break;
 
 		case BOOL:
-			std::cout << (this->_exp->evaluateBool() ? "true" : "false") << std::endl;
+			// std::cout << (this->_exp->evaluateBool() ? "true" : "false") << std::endl;
+			std::cout << (this->_exp->evaluateBool() ? "true" : "false");
 			break;
 
 		default:
 			// Intentar imprimir como string
-			std::cout << this->_exp->evaluateString() << std::endl;
-	}
+			// std::cout << this->_exp->evaluateString() << std::endl;
+			std::cout << this->_exp->evaluateString();
+		}
 }
 
 

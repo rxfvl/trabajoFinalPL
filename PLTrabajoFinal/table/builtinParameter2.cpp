@@ -19,7 +19,6 @@
  Definitions of the read and write functions of the BuiltinParameter2 class 
 */
 
-
 lp::BuiltinParameter2 &lp::BuiltinParameter2::operator=(const lp::BuiltinParameter2 &f)
   {
  	// Check that is not the current object

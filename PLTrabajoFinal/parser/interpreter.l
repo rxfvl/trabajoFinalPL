@@ -161,10 +161,10 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 	{
 		yylval.string = strdup(lexema.c_str());
 
-		if (lexema == "mod") return MODULO;
-		if (lexema == "not") return NOT;
-		if (lexema == "or") return OR;
-		if (lexema == "and") return AND;
+		// if (lexema == "mod") return MODULO;
+		// if (lexema == "not") return NOT;
+		// if (lexema == "or") return OR;
+		// if (lexema == "and") return AND;
 
 		if (!table.lookupSymbol(lexema)) {
 			lp::NumericVariable *n = new lp::NumericVariable(lexema, VARIABLE, UNDEFINED, 0.0);
@@ -218,6 +218,14 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 "}"		{ return RIGHTCURLYBRACKET; }	/* NEW in example 17 */
 
 "||"	{ return CONCATENATION; }
+
+"mod"	{ return MODULO; }
+
+"and"	{ return AND; }
+
+"not"	{ return NOT; }
+
+"or"	{ return OR; }
 
 
 {CADENA} 	{std::string raw = yytext;

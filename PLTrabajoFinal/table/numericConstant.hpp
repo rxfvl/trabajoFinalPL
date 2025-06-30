@@ -146,7 +146,7 @@ class NumericConstant:public lp::Constant
 /*!	
 	\name Operators
 */
-	
+	using Constant::operator=;
 /*!		
 	\brief  Assignment Operator
 	\param  n: objectoof NumericConstant class

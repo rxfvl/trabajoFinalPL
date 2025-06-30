@@ -146,6 +146,7 @@ class LogicalConstant:public lp::Constant
 /*!	
 	\name Operators
 */
+	using Constant::operator=;
 	
 /*!		
 	\brief  Assignment Operator
