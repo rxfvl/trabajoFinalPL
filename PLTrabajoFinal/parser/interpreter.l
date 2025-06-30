@@ -219,14 +219,6 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
 "||"	{ return CONCATENATION; }
 
-"mod"	{ return MODULO; }
-
-"and"	{ return AND; }
-
-"not"	{ return NOT; }
-
-"or"	{ return OR; }
-
 
 {CADENA} 	{std::string raw = yytext;
 			raw = raw.substr(1, raw.length() - 2); // Eliminar comillas exteriores
