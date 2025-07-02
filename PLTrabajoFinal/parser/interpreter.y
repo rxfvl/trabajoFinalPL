@@ -440,21 +440,21 @@ cond: 	LPAREN exp RPAREN
 		}
 ;
 
-for: FOR VARIABLE FROM exp TO exp STEP exp DO stmtlist ENDFOR
+for: FOR VARIABLE FROM exp TO exp STEP exp DO controlSymbol stmtlist ENDFOR
 		{
 			// Create a new for statement node
 			
-			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($10),$8);
+			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($11),$8);
 
 			// To control the interactive mode
 			control--;
     }
 	|
-	FOR VARIABLE FROM exp TO exp DO stmtlist ENDFOR
+	FOR VARIABLE FROM exp TO exp DO controlSymbol stmtlist ENDFOR
 		{
 			// Create a new for statement node
 			
-			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($8),NULL);
+			$$ = new lp::ForStmt($2,$4,$6,new lp::BlockStmt($9),NULL);
 
 			// To control the interactive mode
 			control--;
