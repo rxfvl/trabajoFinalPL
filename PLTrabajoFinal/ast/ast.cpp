@@ -286,6 +286,10 @@ int lp::RelationalOperatorNode::getType()
 		result = BOOL;
 	else if ( (this->_left->getType() == BOOL) and (this->_right->getType() == BOOL))
 		result = BOOL;
+	
+	else if ((_left->getType() == -1) && (_right->getType() == -1))
+		result = BOOL;
+	
 	else
 		warning("Runtime error: incompatible types for", "Relational Operator");
 
@@ -751,16 +755,22 @@ bool lp::GreaterThanNode::evaluateBool()
 
 	if (this->getType() == BOOL)
 	{
-		double leftNumber, rightNumber;
-		leftNumber = this->_left->evaluateNumber();
-		rightNumber = this->_right->evaluateNumber();
-
-		result = (leftNumber > rightNumber);
+		switch(this->_left->getType()){
+			case NUMBER:
+				result = this->_left->evaluateNumber() > this->_right->evaluateNumber();
+				break;
+			case -1:
+				result = this->_left->evaluateString() > this->_right->evaluateString();
+				break;
+			default:
+				warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
+		}
 	}
 	else
 	{
 		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
+
 
 	return result;
 }
@@ -784,15 +794,20 @@ bool lp::GreaterOrEqualNode::evaluateBool()
 
 	if (this->getType() == BOOL)
 	{
-		double leftNumber, rightNumber;
-		leftNumber = this->_left->evaluateNumber();
-		rightNumber = this->_right->evaluateNumber();
-
-		result = (leftNumber >= rightNumber);
+		switch(this->_left->getType()){
+			case NUMBER:
+				result = this->_left->evaluateNumber() >= this->_right->evaluateNumber();
+				break;
+			case -1:
+				result = this->_left->evaluateString() >= this->_right->evaluateString();
+				break;
+			default:
+				warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
+		}
 	}
 	else
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Greater or equal than");
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -818,15 +833,20 @@ bool lp::LessThanNode::evaluateBool()
 
 	if (this->getType() == BOOL)
 	{
-		double leftNumber, rightNumber;
-		leftNumber = this->_left->evaluateNumber();
-		rightNumber = this->_right->evaluateNumber();
-
-		result = (leftNumber < rightNumber);
+		switch(this->_left->getType()){
+			case NUMBER:
+				result = this->_left->evaluateNumber() < this->_right->evaluateNumber();
+				break;
+			case -1:
+				result = this->_left->evaluateString() < this->_right->evaluateString();
+				break;
+			default:
+				warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
+		}
 	}
 	else
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Less than");
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -851,15 +871,20 @@ bool lp::LessOrEqualNode::evaluateBool()
 
 	if (this->getType() == BOOL)
 	{
-		double leftNumber, rightNumber;
-		leftNumber = this->_left->evaluateNumber();
-		rightNumber = this->_right->evaluateNumber();
-
-		result = (leftNumber <= rightNumber);
+		switch(this->_left->getType()){
+			case NUMBER:
+				result = this->_left->evaluateNumber() <= this->_right->evaluateNumber();
+				break;
+			case -1:
+				result = this->_left->evaluateString() <= this->_right->evaluateString();
+				break;
+			default:
+				warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
+		}
 	}
 	else
 	{
-		warning("Runtime error: incompatible types of parameters for ", "operator Less or equal than");
+		warning("Runtime error: incompatible types of parameters for ", "operator Greater than");
 	}
 
 	return result;
@@ -902,6 +927,13 @@ bool lp::EqualNode::evaluateBool()
 				// 
 				result = (leftBoolean == rightBoolean);
 				break;
+			case -1:
+			{
+				std::string leftStr = this->_left->evaluateString();
+				std::string rightStr = this->_right->evaluateString();
+				result = (leftStr == rightStr);
+				break;
+			}
 		  default:
 				warning("Runtime error: incompatible types of parameters for ", 
 								"Equal operator");				
@@ -952,6 +984,13 @@ bool lp::NotEqualNode::evaluateBool()
 				// 
 				result = (leftBoolean != rightBoolean);
 				break;
+			case -1:
+			{
+				std::string leftStr = this->_left->evaluateString();
+				std::string rightStr = this->_right->evaluateString();
+				result = (leftStr != rightStr);
+				break;
+			}
 		  default:
 				warning("Runtime error: incompatible types of parameters for ", 
 								"Not Equal operator");				

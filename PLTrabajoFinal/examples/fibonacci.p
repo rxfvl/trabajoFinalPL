@@ -1,4 +1,4 @@
-print('Inserte el cuantos digitos de la sucesion quiere obtener');
+print('Inserte el cuantos digitos de la sucesion quiere obtener\n');
 
 read(n);
 
