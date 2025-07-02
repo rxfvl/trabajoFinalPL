@@ -2,7 +2,7 @@
 	\file    ast.cpp
 	\brief   Code of funcitons of AST clas
 	\author  
-	\date    2018-12-13
+	\date    201 STRING3
 	\version 1.0
 */
 
@@ -121,7 +121,7 @@ std::string lp::VariableNode::evaluateString()
 {
 	std::string result;
 
-	if (this->getType() == -1)
+	if (this->getType() == STRING)
 	{
 		lp::StringVariable *var = (lp::StringVariable *) table.getSymbol(this->_id);
 		result = var->getValue();
@@ -197,6 +197,11 @@ bool lp::ConstantNode::evaluateBool()
 
 	// Return the value of the LogicalVariable
 	return result;
+}
+
+int lp::StringNode::getType()
+{
+	return STRING;
 }
 
 
@@ -287,7 +292,7 @@ int lp::RelationalOperatorNode::getType()
 	else if ( (this->_left->getType() == BOOL) and (this->_right->getType() == BOOL))
 		result = BOOL;
 	
-	else if ((_left->getType() == -1) && (_right->getType() == -1))
+	else if ((_left->getType() == STRING) && (_right->getType() == STRING))
 		result = BOOL;
 	
 	else
@@ -759,7 +764,7 @@ bool lp::GreaterThanNode::evaluateBool()
 			case NUMBER:
 				result = this->_left->evaluateNumber() > this->_right->evaluateNumber();
 				break;
-			case -1:
+			case STRING:
 				result = this->_left->evaluateString() > this->_right->evaluateString();
 				break;
 			default:
@@ -798,7 +803,7 @@ bool lp::GreaterOrEqualNode::evaluateBool()
 			case NUMBER:
 				result = this->_left->evaluateNumber() >= this->_right->evaluateNumber();
 				break;
-			case -1:
+			case STRING:
 				result = this->_left->evaluateString() >= this->_right->evaluateString();
 				break;
 			default:
@@ -837,7 +842,7 @@ bool lp::LessThanNode::evaluateBool()
 			case NUMBER:
 				result = this->_left->evaluateNumber() < this->_right->evaluateNumber();
 				break;
-			case -1:
+			case STRING:
 				result = this->_left->evaluateString() < this->_right->evaluateString();
 				break;
 			default:
@@ -875,7 +880,7 @@ bool lp::LessOrEqualNode::evaluateBool()
 			case NUMBER:
 				result = this->_left->evaluateNumber() <= this->_right->evaluateNumber();
 				break;
-			case -1:
+			case STRING:
 				result = this->_left->evaluateString() <= this->_right->evaluateString();
 				break;
 			default:
@@ -927,7 +932,7 @@ bool lp::EqualNode::evaluateBool()
 				// 
 				result = (leftBoolean == rightBoolean);
 				break;
-			case -1:
+			case STRING:
 			{
 				std::string leftStr = this->_left->evaluateString();
 				std::string rightStr = this->_right->evaluateString();
@@ -984,7 +989,7 @@ bool lp::NotEqualNode::evaluateBool()
 				// 
 				result = (leftBoolean != rightBoolean);
 				break;
-			case -1:
+			case STRING:
 			{
 				std::string leftStr = this->_left->evaluateString();
 				std::string rightStr = this->_right->evaluateString();
@@ -1202,11 +1207,11 @@ void lp::AssignmentStmt::evaluate()
 			}
 			break;
 			
-			case -1:
+			case STRING:
 			{
 				std::string value = this->_exp->evaluateString();
 
-				if (firstVar->getType() == -1) {
+				if (firstVar->getType() == STRING) {
 					// Si ya es una string, solo la actualizamos
 					lp::StringVariable *v = (lp::StringVariable *) table.getSymbol(this->_id);
 					v->setValue(value);
@@ -1215,7 +1220,7 @@ void lp::AssignmentStmt::evaluate()
 					// Borrar variable previa y crear nueva string
 					table.eraseSymbol(this->_id);
 
-					lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+					lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, STRING, value);
 					table.installSymbol(v);
 				}
 			}
@@ -1432,7 +1437,7 @@ void lp::ReadStrStmt::evaluate()
 	// Buscar el símbolo
 	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
 
-	if (var != NULL && var->getType() == -1) // STRING
+	if (var != NULL && var->getType() == STRING) // STRING
 	{
 		lp::StringVariable *v = (lp::StringVariable *) table.getSymbol(this->_id);
 		v->setValue(value);
@@ -1440,7 +1445,7 @@ void lp::ReadStrStmt::evaluate()
 	else
 	{
 		table.eraseSymbol(this->_id);
-		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, STRING, value);
 		table.installSymbol(v);
 	}
 }
@@ -1463,7 +1468,7 @@ void lp::ReadStrStmt::evaluate()
 // 	// Buscar si la variable ya existe
 // 	lp::Variable *var = (lp::Variable *) table.getSymbol(this->_id);
 
-// 	if (var != NULL && var->getType() == -1) // STRING
+// 	if (var != NULL && var->getType() == STRING) // STRING
 // 	{
 // 		lp::StringVariable *v = (lp::StringVariable *) var;
 // 		v->setValue(value);
@@ -1471,7 +1476,7 @@ void lp::ReadStrStmt::evaluate()
 // 	else
 // 	{
 // 		table.eraseSymbol(this->_id);
-// 		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, -1, value);
+// 		lp::StringVariable *v = new lp::StringVariable(this->_id, VARIABLE, STRING, value);
 // 		table.installSymbol(v);
 // 	}
 // }
@@ -1492,7 +1497,7 @@ void lp::ConcatNode::printAST()
 
 std::string lp::ConcatNode::evaluateString()
 {
-  if (this->getType() == -1)
+  if (this->getType() == STRING)
   {
     return this->_left->evaluateString() + this->_right->evaluateString();
   }
@@ -1505,11 +1510,11 @@ std::string lp::ConcatNode::evaluateString()
 
 int lp::ConcatNode::getType()
 {
-  if (_left->getType() == -1 && _right->getType() == -1)
-    return -1;
+  if (_left->getType() == STRING && _right->getType() == STRING)
+    return STRING;
   else
     warning("Runtime error: incompatible types for", "Concat Operator");
-  return -1; // Mantén -1 aunque haya warning
+  return STRING; // Mantén STRING aunque haya warning
 }
 
 ////////////////////////////////////////

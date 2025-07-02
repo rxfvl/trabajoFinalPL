@@ -2030,12 +2030,10 @@ class StringNode : public ExpNode
   explicit StringNode(const std::string &value) : _value(value) {}
 
 /*!	
-	\brief   Get the type of the expression: STRING (symbolic or -1)
+	\brief   Get the type of the expression: STRING
 	\return  int
 */
-  int getType() override {
-    return -1; // o define un STRING_TYPE si lo deseas
-  }
+  int getType() override;
 
 /*!	
 	\brief   Print the AST for the StringNode
