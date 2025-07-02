@@ -1,9 +1,9 @@
-a := 1;
 b := 0;
 
 repeat
-a := a+1;
-print (a);
-until (a > 4);
+b := b+1;
+print (b);
+print(' ');
+until (b > 4);
 
-print (a);
+print (b);

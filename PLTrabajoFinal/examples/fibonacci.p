@@ -10,8 +10,9 @@ i := 0;
 for i from 1 to n do
 actual := sigiente + anterior;
 print(actual);
+print(' ');
 anterior := sigiente;
 sigiente := actual;
 end_for
 
-print('Final del programa');
+print('\nFinal del programa\n');

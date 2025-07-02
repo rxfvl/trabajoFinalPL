@@ -1834,7 +1834,7 @@ void lp::RepeatStmt::evaluate()
 {
 	do {
 		this->_stmt->evaluate();
-	} while (this->_cond->evaluateBool() == true);
+	} while (this->_cond->evaluateBool() == false);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
