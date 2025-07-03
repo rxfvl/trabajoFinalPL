@@ -1614,7 +1614,36 @@ std::string lp::ConcatNode::evaluateString()
 {
   if (this->getType() == STRING)
   {
-    return this->_left->evaluateString() + this->_right->evaluateString();
+	std::string left;
+	std::string right;
+
+	if (this->_left->getType() == NUMBER)
+	{
+		double x = this->_left->evaluateNumber();
+
+		if (std::floor(x) == x) left = std::to_string(int(x));
+
+		else left = std::to_string(x);
+	}
+	else
+	{
+		left = this->_left->evaluateString();
+	}
+
+	if (this->_right->getType() == NUMBER)
+	{
+		double x = this->_right->evaluateNumber();
+
+		if (std::floor(x) == x) right = std::to_string(int(x));
+
+		else right = std::to_string(x);
+	}
+	else
+	{
+		right = this->_right->evaluateString();
+	}
+
+    return left + right;
   }
   else
   {
@@ -1625,11 +1654,17 @@ std::string lp::ConcatNode::evaluateString()
 
 int lp::ConcatNode::getType()
 {
-  if (_left->getType() == STRING && _right->getType() == STRING)
-    return STRING;
-  else
-    warning("Runtime error: incompatible types for", "Concat Operator");
-  return STRING; // Mantén STRING aunque haya warning
+	int leftType = _left->getType();
+	int rightType = _right->getType();
+
+	if ((leftType == STRING || leftType == NUMBER) &&
+		(rightType == STRING || rightType == NUMBER))
+	{
+		return STRING;
+	}
+	else
+		warning("Runtime error: incompatible types for", "Concat Operator");
+	return STRING; // Mantén STRING aunque haya warning
 }
 
 ////////////////////////////////////////
