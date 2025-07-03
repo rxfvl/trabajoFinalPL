@@ -232,6 +232,8 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 %left CONCATENATION
 
+%left PLUS_EQUAL MINUS_EQUAL MULTIPLICATION_EQUAL DIVISION_EQUAL
+
 %nonassoc  UNARY
 
 // Maximum precedence 
@@ -514,6 +516,23 @@ asgn:   VARIABLE ASSIGNMENT exp
 		{   
  			execerror("Semantic error in multiple assignment: it is not allowed to modify a constant ",$1);
 		}
+	|	VARIABLE PLUS_EQUAL exp
+		{
+			$$ = new lp::PlusEqualNode(new lp::VariableNode($1),$3);
+		}
+	|	VARIABLE MINUS_EQUAL exp
+		{
+			$$ = new lp::MinusEqualNode(new lp::VariableNode($1),$3);
+		}
+	|	VARIABLE MULTIPLICATION_EQUAL exp
+		{
+			$$ = new lp::MultiplicationEqualNode(new lp::VariableNode($1),$3);
+		}
+	|	VARIABLE DIVISION_EQUAL exp
+		{
+			$$ = new lp::DivisionEqualNode(new lp::VariableNode($1),$3);
+		}
+
 ;
 
 print:  PRINT LPAREN exp RPAREN 

@@ -200,6 +200,13 @@ CADENA \'([^\\\']|\\[nt'\\])*\'
 
 ":=" 	{ return ASSIGNMENT; }		/* NEW in example 7 */
 
+"+:="	{ return PLUS_EQUAL; }
+
+"-:="	{ return MINUS_EQUAL; }
+
+"*:="	{ return MULTIPLICATION_EQUAL; }
+
+"/:="	{ return DIVISION_EQUAL; }
 
 "="	{ return EQUAL; }			/* NEW in example 15 */
 

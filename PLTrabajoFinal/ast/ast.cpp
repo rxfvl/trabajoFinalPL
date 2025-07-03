@@ -1321,6 +1321,117 @@ break;
 	}
 }
 
+//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+// PlusEqualNode
+lp::PlusEqualNode::PlusEqualNode(ExpNode *left, ExpNode *right)
+{
+  lp::VariableNode *varNode = dynamic_cast<lp::VariableNode *>(left);
+  _id = varNode->getId();
+  _exp = right;
+}
+
+
+void lp::PlusEqualNode::printAST() {
+  	std::cout << "PlusEqualNode: " << _id << " += " << std::endl;
+  	_exp->printAST();
+}
+
+void lp::PlusEqualNode::evaluate() {
+  	lp::Variable *var = (lp::Variable *) table.getSymbol(_id);
+  	if (var->getType() != NUMBER) {
+    	warning("Runtime error: variable is not numeric for operator +:=", _id);
+    	return;
+  	}
+
+  	double current = ((lp::NumericVariable *) var)->getValue();
+  	double result = current + _exp->evaluateNumber();
+  	((lp::NumericVariable *) var)->setValue(result);
+}
+
+//////////////////////////////////////
+// MinusEqualNode
+lp::MinusEqualNode::MinusEqualNode(ExpNode *left, ExpNode *right) {
+  	lp::VariableNode *varNode = dynamic_cast<lp::VariableNode *>(left);
+	_id = varNode->getId();
+	_exp = right;
+}
+
+void lp::MinusEqualNode::printAST() {
+  	std::cout << "MinusEqualNode: " << _id << " -= " << std::endl;
+  	_exp->printAST();
+}
+
+void lp::MinusEqualNode::evaluate() {
+  	lp::Variable *var = (lp::Variable *) table.getSymbol(_id);
+  	if (var->getType() != NUMBER) {
+    	warning("Runtime error: variable is not numeric for operator -:=", _id);
+    	return;
+  	}
+
+  	double current = ((lp::NumericVariable *) var)->getValue();
+  	double result = current - _exp->evaluateNumber();
+  	((lp::NumericVariable *) var)->setValue(result);
+}
+
+//////////////////////////////////////
+// MultiplicationEqualNode
+lp::MultiplicationEqualNode::MultiplicationEqualNode(ExpNode *left, ExpNode *right) {
+	lp::VariableNode *varNode = dynamic_cast<lp::VariableNode *>(left);
+	_id = varNode->getId();
+	_exp = right;
+}
+
+void lp::MultiplicationEqualNode::printAST() {
+	std::cout << "MultiplicationEqualNode: " << _id << " *= " << std::endl;
+	_exp->printAST();
+}
+
+void lp::MultiplicationEqualNode::evaluate() {
+  lp::Variable *var = (lp::Variable *) table.getSymbol(_id);
+	if (var->getType() != NUMBER) {
+		warning("Runtime error: variable is not numeric for operator *:=", _id);
+		return;
+	}
+
+	double current = ((lp::NumericVariable *) var)->getValue();
+	double result = current * _exp->evaluateNumber();
+	((lp::NumericVariable *) var)->setValue(result);
+}
+
+//////////////////////////////////////
+// DivisionEqualNode
+lp::DivisionEqualNode::DivisionEqualNode(ExpNode *left, ExpNode *right) {
+	lp::VariableNode *varNode = dynamic_cast<lp::VariableNode *>(left);
+	_id = varNode->getId();
+	_exp = right;
+}
+
+void lp::DivisionEqualNode::printAST() {
+	std::cout << "DivisionEqualNode: " << _id << " /= " << std::endl;
+	_exp->printAST();
+}
+
+void lp::DivisionEqualNode::evaluate() {
+	lp::Variable *var = (lp::Variable *) table.getSymbol(_id);
+	if (var->getType() != NUMBER) {
+		warning("Runtime error: variable is not numeric for operator /:=", _id);
+		return;
+	}
+
+	double divisor = _exp->evaluateNumber();
+	if (fabs(divisor) < ERROR_BOUND) {
+		warning("Runtime error: division by zero in operator /:=", _id);
+		return;
+	}
+
+	double current = ((lp::NumericVariable *) var)->getValue();
+	double result = current / divisor;
+	((lp::NumericVariable *) var)->setValue(result);
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -138,6 +138,11 @@ class VariableNode : public ExpNode
 	  bool evaluateBool();
 	  std::string evaluateString() override;
 
+	inline std::string getId() const
+	{
+		return _id;
+	}
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1483,6 +1488,136 @@ class AssignmentStmt : public Statement
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+/*!	
+  \class   PlusEqualNode
+  \brief   Clase que representa una asignación compuesta con suma (+:=)
+  \note    Hereda de Statement
+*/
+class PlusEqualNode : public Statement 
+{
+private:
+  std::string _id; //!< Nombre de la variable a modificar
+  ExpNode *_exp;   //!< Expresión a evaluar y sumar
+
+public:
+  /*!	
+    \brief Constructor de PlusEqualNode
+    \param left: ExpNode* que representa la variable (debe ser VariableNode)
+    \param right: ExpNode* con la expresión numérica a sumar
+  */
+  PlusEqualNode(ExpNode *left, ExpNode *right);
+
+  /*!	
+    \brief Imprime el nodo del AST
+  */
+  void printAST();
+
+  /*!	
+    \brief Evalúa la asignación compuesta de suma
+  */
+  void evaluate();
+};
+
+
+
+/*!	
+  \class   MinusEqualNode
+  \brief   Clase que representa una asignación compuesta con resta (-:=)
+  \note    Hereda de Statement
+*/
+class MinusEqualNode : public Statement 
+{
+private:
+  std::string _id; //!< Nombre de la variable a modificar
+  ExpNode *_exp;   //!< Expresión a evaluar y restar
+
+public:
+  /*!	
+    \brief Constructor de MinusEqualNode
+    \param left: ExpNode* que representa la variable (debe ser VariableNode)
+    \param right: ExpNode* con la expresión numérica a restar
+  */
+  MinusEqualNode(ExpNode *left, ExpNode *right);
+
+  /*!	
+    \brief Imprime el nodo del AST
+  */
+  void printAST();
+
+  /*!	
+    \brief Evalúa la asignación compuesta de resta
+  */
+  void evaluate();
+};
+
+
+
+/*!	
+  \class   MultiplicationEqualNode
+  \brief   Clase que representa una asignación compuesta con multiplicación (*:=)
+  \note    Hereda de Statement
+*/
+class MultiplicationEqualNode : public Statement 
+{
+private:
+  std::string _id; //!< Nombre de la variable a modificar
+  ExpNode *_exp;   //!< Expresión a evaluar y multiplicar
+
+public:
+  /*!	
+    \brief Constructor de MultiplicationEqualNode
+    \param left: ExpNode* que representa la variable (debe ser VariableNode)
+    \param right: ExpNode* con la expresión numérica a multiplicar
+  */
+  MultiplicationEqualNode(ExpNode *left, ExpNode *right);
+
+  /*!	
+    \brief Imprime el nodo del AST
+  */
+  void printAST();
+
+  /*!	
+    \brief Evalúa la asignación compuesta de multiplicación
+  */
+  void evaluate();
+};
+
+
+
+/*!	
+  \class   DivisionEqualNode
+  \brief   Clase que representa una asignación compuesta con división (/:=)
+  \note    Hereda de Statement
+*/
+class DivisionEqualNode : public Statement 
+{
+private:
+  std::string _id; //!< Nombre de la variable a modificar
+  ExpNode *_exp;   //!< Expresión a evaluar y dividir
+
+public:
+  /*!	
+    \brief Constructor de DivisionEqualNode
+    \param left: ExpNode* que representa la variable (debe ser VariableNode)
+    \param right: ExpNode* con la expresión numérica a dividir
+  */
+  DivisionEqualNode(ExpNode *left, ExpNode *right);
+
+  /*!	
+    \brief Imprime el nodo del AST
+  */
+  void printAST();
+
+  /*!	
+    \brief Evalúa la asignación compuesta de división
+  */
+  void evaluate();
+};
+
+
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 /*!	
   \class   PrintStmt
   \brief   Definition of atributes and methods of PrintStmt class
